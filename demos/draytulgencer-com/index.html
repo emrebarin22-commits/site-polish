@@ -342,6 +342,9 @@ h2.buyuk { font-size: clamp(36px, 4.4vw, 60px); line-height: 1.04; }
 .onay input { width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--orman); }
 .onay a { color: var(--yaprak-metin); }
 .form-kart .btn { width: 100%; margin-top: 24px; }
+.form-hazir { margin-top: 18px; padding: 18px; border-radius: var(--r); background: var(--sis); display: grid; gap: 12px; font-size: 15px; }
+.form-hazir[hidden] { display: none; }
+.form-hazir .btn { margin-top: 0; }
 .form-ipucu { margin-top: 12px; font-size: 13.5px; color: var(--ikincil); text-align: center; }
 
 /* FAQ */
@@ -757,6 +760,10 @@ h2.buyuk { font-size: clamp(36px, 4.4vw, 60px); line-height: 1.04; }
         <p class="hata" id="e-onay" aria-live="polite"></p>
         <button class="btn btn-ana" type="submit">Arama talebimi gönder</button>
         <p class="form-ipucu">Talebiniz WhatsApp üzerinden iletilir.</p>
+        <div class="form-hazir" id="f-hazir" role="status" hidden>
+          <p>Mesajınız hazır. Göndermek için WhatsApp'ı açın.</p>
+          <a class="btn btn-ikinci" href="https://wa.me/905332946274" target="_blank" rel="noopener">WhatsApp'ta aç ve gönder</a>
+        </div>
       </form>
     </div>
   </section>
@@ -947,7 +954,10 @@ h2.buyuk { font-size: clamp(36px, 4.4vw, 60px); line-height: 1.04; }
     if (ilk) { ilk.focus(); return; }
     var metin = 'Merhaba, beni arayabilir misiniz?\nAd soyad: ' + ad.value.trim() + '\nTelefon: ' + tel.value.trim() +
       (form.konu.value ? '\nKonu: ' + form.konu.value : '');
-    window.open('https://wa.me/905332946274?text=' + encodeURIComponent(metin), '_blank', 'noopener');
+    var hazir = document.getElementById('f-hazir');
+    hazir.querySelector('a').href = 'https://wa.me/905332946274?text=' + encodeURIComponent(metin);
+    hazir.hidden = false;
+    hazir.querySelector('a').focus();
   });
   ['ad', 'tel'].forEach(function (n) {
     form[n].addEventListener('input', function () { if (form[n].getAttribute('aria-invalid') === 'true') hata('e-' + n, form[n], ''); });
