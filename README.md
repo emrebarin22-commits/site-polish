@@ -12,3 +12,4 @@ Bundled skills (in `.claude/skills/`, each keeps its own license):
 - [emilkowalski/skills](https://github.com/emilkowalski/skills): 20 animation and design-engineering skills
 - [pbakaus/impeccable](https://github.com/pbakaus/impeccable): `impeccable`
 - [leonxlnx/taste-skill](https://github.com/leonxlnx/taste-skill): `taste-skill`
+- [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill): `ui-ux-pro-max` (searchable palettes, font pairings, UX and accessibility rules)

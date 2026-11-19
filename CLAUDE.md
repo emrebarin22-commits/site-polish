@@ -27,6 +27,7 @@ to the specialist skills and follows the workflow below.
    - `taste-skill`: copy, layout system, hero, and the "does this look generic" check
    - `find-animation-opportunities` and `review-animations`: motion that is missing or wrong
    - `break-ui`: worst-case content on the key components
+   - `ui-ux-pro-max`: accessibility, forms, navigation and the pre-delivery checklist
    - Write the findings to `sites/<slug>/notes.md`, ranked by impact.
 3. **Polish**: build `demos/<slug>/index.html`.
    - Keep the site's real content, brand, colors and logo. This is a polish, not a new brand.

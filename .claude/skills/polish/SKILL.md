@@ -1,10 +1,10 @@
 ---
 name: polish
-description: One entry point for website changes. Takes a plain-language request about a site ("make the hero feel premium", "the mobile menu is janky", "polish turkanomad.com", "add motion to the pricing cards"), decides which of the bundled design skills apply (impeccable, taste-skill, and Emil Kowalski's animation and design-engineering skills), reads only those, applies them in the right order, and delivers one finished result with a before/after demo. Use whenever the user asks to change, polish, redesign, review or animate one of their websites.
+description: One entry point for website changes. Takes a plain-language request about a site ("make the hero feel premium", "the mobile menu is janky", "polish turkanomad.com", "add motion to the pricing cards"), decides which of the bundled design skills apply (impeccable, taste-skill, ui-ux-pro-max, and Emil Kowalski's animation and design-engineering skills), reads only those, applies them in the right order, and delivers one finished result with a before/after demo. Use whenever the user asks to change, polish, redesign, review or animate one of their websites.
 argument-hint: "[site url or slug] [what to change]"
 ---
 
-# Polish: one router over three skill repos
+# Polish: one router over four skill repos
 
 The user describes a change in their own words, in any language. You turn it into one finished
 output. The specialist skills live next to this one in `.claude/skills/`. Call them by
@@ -31,9 +31,14 @@ If the target is unclear, ask one short question. Otherwise proceed and state yo
 | "review", "what's wrong", "audit", "critique", "score it" | review (no edits) | `impeccable` → `reference/critique.md` + `reference/audit.md`, `find-animation-opportunities`, `review-animations` |
 | "bolder", "more personality", "too plain" | bolder | `impeccable` → `reference/bolder.md` (also `colorize.md`, `typeset.md` if relevant) |
 | "too busy", "calmer", "too loud" | quieter | `impeccable` → `reference/quieter.md` / `distill.md`, `remove-animations` |
-| "fonts", "typography", "text looks bad" | type | `impeccable` → `reference/typeset.md`, `apple-design` (typography section) |
+| "fonts", "typography", "text looks bad" | type | `impeccable` → `reference/typeset.md`, `ui-ux-pro-max` font-pairing search, `apple-design` (typography section) |
 | "spacing", "layout", "alignment", "grid" | layout | `impeccable` → `reference/layout.md`, `taste-skill` → `references/layout-v4.md` |
-| "colors", "palette", "dark mode" | color | `impeccable` → `reference/colorize.md` |
+| "colors", "palette", "dark mode" | color | `impeccable` → `reference/colorize.md`, `ui-ux-pro-max` color search (contrast and dark-mode rules) |
+| "accessibility", "contrast", "keyboard", "screen reader" | accessibility | `ui-ux-pro-max` (`ux` domain, one outcome per query), `impeccable` → `reference/audit.md` |
+| "forms", "sign-up", "errors", "validation" | forms | `ui-ux-pro-max` (`ux` domain: forms and feedback), `break-ui` |
+| "menu", "navigation", "can't find things" | navigation | `ui-ux-pro-max` (`ux` domain: navigation), `impeccable` → `reference/layout.md` |
+| "charts", "graphs", "dashboard numbers" | charts | `ui-ux-pro-max` (`chart` domain) |
+| "what style fits my product", "pick a direction" | direction | `ui-ux-pro-max` `--design-system` for candidates, then `taste-skill` decides |
 | "animate", "add motion", "feel alive", "transition" | add motion | `find-animation-opportunities` → `animate` → `choreograph` (if several elements) |
 | "animation feels wrong / cheap / slow" | fix motion | `review-animations` → `emil-design-eng` → `animate` |
 | "too much animation", "feels slow" | remove motion | `remove-animations` |
@@ -57,6 +62,12 @@ Rules for combining:
 - Every motion change respects `prefers-reduced-motion` and only animates `transform` / `opacity`
   unless a skill says otherwise.
 - Keep the site's real content, language, brand colors and logo unless the user asks to change them.
+- `ui-ux-pro-max` is the lookup layer: palettes, font pairings, UX and accessibility rules,
+  stack notes. It supplies options and checks. It does not choose the page direction (taste-skill
+  and the existing brand do), and its GSAP presets never override Emil's motion rules.
+  Run its search from the repo root: `python3 .claude/skills/ui-ux-pro-max/scripts/search.py "<query>" --domain <domain>`
+  (its own docs use `${CLAUDE_PLUGIN_ROOT}`, which is not set here). Don't use `--persist` unless the
+  user wants a design-system file; if so, write it under `sites/<slug>/`.
 
 ## 3. Do the work
 
@@ -71,6 +82,8 @@ Rules for combining:
 4. **Verify**: screenshot the result on desktop and mobile
    (`node scripts/capture.js file://$PWD/demos/<slug>/index.html demos/<slug>`), compare it with
    `before/`, fix regressions, and run taste-skill's finish gate when the page was rebuilt.
+   Then go through `ui-ux-pro-max` → `references/pro-rules.md` (pre-delivery checklist):
+   contrast, 44px touch targets, focus states, reduced motion, no horizontal scroll.
 
 ## 4. Deliver one final output
 
