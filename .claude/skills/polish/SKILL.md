@@ -87,7 +87,8 @@ Rules for combining:
 
 ## 4. Deliver one final output
 
-- The changed files (or `demos/<slug>/index.html`), published as an Artifact so it opens in a browser.
+- The changed files (or `demos/<slug>/index.html`) plus a `before-after.jpg`, sent to the user as files.
+  A demo carries a real brand, so do not publish it as a public page unless the user asks.
 - A short summary for the user, in their language:
   - what you understood they wanted (one line)
   - which skills you used and why (one line each)

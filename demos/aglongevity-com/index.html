@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="tr" data-type="service">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AG Longevity · Dr. Aytül Gençer</title>
+<meta name="description" content="Dr. Aytül Gençer'in Maslak kliniğinden ücretsiz Longevity Skoru: 12 soruda uyku, enerji, hareket, beslenme, metabolik denge ve önleyici takip.">
+<meta name="page-type" content="service">
+<meta name="site-kind" content="other">
+<meta name="theme-color" content="#f7f9fa">
+<link rel="icon" type="image/svg+xml" href="ag-logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* AG Longevity tokens, unchanged from the live site */
+  --zemin: #f7f9fa; --yuzey: #ffffff; --zemin-sis: #e4eef0; --sis-2: #d4e8eb; --sis-3: #c4e1e4;
+  --murekkep: #13232b; --grafit: #4d5961;
+  --turkuaz: #00b9c3; --turkuaz-hover: #2cc6cf; --turkuaz-metin: #006a72; --on-turkuaz: #0b2f3a;
+  --petrol: #0b2f3a; --petrol-hover: #174552;
+  --sampanya: #e9dfd0; --altin: #b8945a; --altin-metin: #7a5a26;
+  --cizgi: #d3dde1; --cizgi-guclu: #7f9198;
+  --k-grafit: #c5d0d4; --k-metin-ince: #d7e3e6; --k-turkuaz-metin: #8fdde2; --k-cizgi: #2d5462;
+
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans: "Manrope", "Helvetica Neue", Arial, sans-serif;
+
+  --icerik: 1160px;
+  --gutter: clamp(20px, 5vw, 56px);
+  --kose: 12px; --kose-kart: 16px; --kose-foto: 20px;
+  --golge-1: 0 1px 2px rgba(11,47,58,.06), 0 1px 3px rgba(11,47,58,.05);
+  --golge-2: 0 6px 18px rgba(11,47,58,.08), 0 1px 3px rgba(11,47,58,.06);
+  --golge-3: 0 24px 60px rgba(11,47,58,.18);
+
+  /* Motion: one easing family for the whole page */
+  --ease-out: cubic-bezier(.23, 1, .32, 1);
+  --ease-in-out: cubic-bezier(.77, 0, .175, 1);
+  --odak: 2px solid var(--turkuaz-metin);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  scroll-padding-top: 88px;
+  interpolate-size: allow-keywords;
+}
+body {
+  margin: 0; background: var(--zemin); color: var(--murekkep);
+  font: 400 17px/1.65 var(--sans);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+:focus-visible { outline: var(--odak); outline-offset: 3px; border-radius: 4px; }
+.koyu :focus-visible { outline-color: var(--k-turkuaz-metin); }
+.kap { width: 100%; max-width: calc(var(--icerik) + var(--gutter) * 2); margin: 0 auto; padding: 0 var(--gutter); }
+.gizli { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Buttons and links */
+a, button { touch-action: manipulation; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  min-height: 52px; padding: 0 26px; border-radius: var(--kose); border: 0;
+  background: var(--turkuaz); color: var(--on-turkuaz);
+  font: 700 16px/1 var(--sans); text-decoration: none; cursor: pointer;
+  user-select: none; -webkit-user-select: none;
+  transition: transform .16s var(--ease-out), background-color .2s ease, box-shadow .2s ease;
+}
+.btn svg { width: 22px; height: 10px; flex: none; transition: transform .3s var(--ease-out); }
+.btn:active { transform: scale(.97); }
+.metin-link {
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-weight: 600; color: var(--turkuaz-metin); text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 calc(100% - 10px) / 0 1.5px no-repeat;
+  transition: background-size .3s var(--ease-out);
+}
+.koyu .metin-link { color: var(--k-turkuaz-metin); }
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { background: var(--turkuaz-hover); box-shadow: 0 8px 22px rgba(0,185,195,.28); }
+  .btn:hover svg { transform: translateX(3px); }
+  .metin-link:hover { background-size: 100% 1.5px; }
+  .ust nav a:hover { color: var(--turkuaz-metin); }
+  .alt a:hover { color: #fff; }
+}
+
+/* Header */
+.ust {
+  position: sticky; top: 0; z-index: 40;
+  background: color-mix(in srgb, var(--zemin) 86%, transparent);
+  backdrop-filter: saturate(1.4) blur(14px); -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  border-bottom: 1px solid transparent; transition: border-color .3s ease;
+}
+.ust.kaydi { border-bottom-color: var(--cizgi); }
+.ust .kap { display: flex; align-items: center; justify-content: space-between; height: 76px; gap: 24px; }
+.marka { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.marka img { width: 38px; height: 38px; }
+.marka b { display: block; font: 600 15px/1.1 var(--sans); letter-spacing: .14em; }
+.marka small { display: block; font: 500 10.5px/1.4 var(--sans); letter-spacing: .2em; color: var(--grafit); margin-top: 3px; }
+.ust nav { display: flex; align-items: center; gap: 30px; }
+.ust nav a:not(.btn) { font-weight: 500; font-size: 15px; text-decoration: none; transition: color .2s ease; }
+.ust nav .btn { min-height: 44px; padding: 0 20px; font-size: 15px; }
+.menu-ac { display: none; }
+
+/* Hero */
+.kahraman { padding: clamp(32px, 6vw, 72px) 0 clamp(56px, 8vw, 104px); overflow: clip; }
+.kahraman .kap { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: clamp(40px, 6vw, 88px); align-items: center; }
+.imza { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--altin-metin); margin-bottom: 22px; }
+.imza::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--altin); }
+.kahraman h1 { font-size: clamp(48px, 7.2vw, 96px); line-height: .98; letter-spacing: -.02em; }
+.kahraman h1 em { font-style: italic; font-weight: 500; color: var(--turkuaz-metin); white-space: nowrap; }
+.kahraman .giris { font-size: clamp(17px, 1.5vw, 19px); color: var(--grafit); max-width: 34em; margin-top: 26px; }
+.eylem { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 34px; }
+.not { margin-top: 22px; font-size: 14.5px; color: var(--grafit); }
+
+.portre { position: relative; justify-self: end; width: min(100%, 460px); }
+.portre .halkalar { position: absolute; inset: -9% -16% auto auto; width: 92%; aspect-ratio: 1.4; pointer-events: none; z-index: 0; }
+.portre .halkalar circle { fill: none; stroke-width: 1.2; }
+.portre .cerceve {
+  position: relative; z-index: 1; aspect-ratio: 4 / 5; border-radius: var(--kose-foto); overflow: hidden;
+  background: var(--zemin-sis); box-shadow: var(--golge-3);
+}
+.portre .cerceve img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; }
+.kimlik {
+  position: absolute; z-index: 2; left: -40px; bottom: 32px; width: min(310px, 82%);
+  background: var(--yuzey); border-radius: var(--kose-kart); padding: 20px 22px 18px;
+  box-shadow: var(--golge-2); border: 1px solid var(--cizgi);
+}
+.kimlik strong { display: block; font: 600 24px/1.1 var(--serif); }
+.kimlik ul { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 6px; font-size: 14px; color: var(--grafit); line-height: 1.45; }
+.kimlik li { display: grid; grid-template-columns: 14px 1fr; gap: 8px; }
+.kimlik li::before { content: ""; width: 6px; height: 6px; margin-top: 7px; border-radius: 50%; background: var(--turkuaz); }
+
+/* Section rhythm */
+.bolum { padding: clamp(72px, 10vw, 128px) 0; }
+.bolum h2 { font-size: clamp(36px, 4.6vw, 58px); line-height: 1.04; }
+.bolum .ozet { color: var(--grafit); font-size: 18px; max-width: 36em; margin-top: 18px; }
+.sis { background: var(--zemin-sis); }
+
+/* How it works */
+.adimlar { list-style: none; padding: 0; margin: 56px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; counter-reset: adim; position: relative; }
+.adimlar::before { content: ""; position: absolute; left: 0; right: 0; top: 19px; height: 1px; background: var(--cizgi-guclu); opacity: .45; }
+.adimlar li { counter-increment: adim; position: relative; }
+.adimlar li::before {
+  content: counter(adim); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--zemin-sis); border: 1px solid var(--cizgi-guclu); font: 600 20px/1 var(--serif); color: var(--petrol);
+  position: relative; margin-bottom: 22px;
+}
+.adimlar li:first-child::before { background: var(--petrol); color: #fff; border-color: var(--petrol); }
+.adimlar h3 { font-size: 26px; line-height: 1.15; }
+.adimlar p { margin-top: 8px; font-size: 15.5px; color: var(--grafit); }
+.adimlar-alt { margin-top: 48px; }
+
+/* Score block: the page's dealt moment */
+.koyu { background: var(--petrol); color: #fff; }
+.skor .kap { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(40px, 6vw, 96px); align-items: center; }
+.skor h2 { color: #fff; }
+.skor .ozet { color: var(--k-metin-ince); }
+.skor .eylem { margin-top: 32px; }
+.skor .uyari { margin-top: 18px; font-size: 13.5px; color: var(--k-grafit); }
+.halka { position: relative; width: min(100%, 380px); justify-self: center; aspect-ratio: 1; }
+.halka svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.halka circle { fill: none; stroke-width: 14; }
+.halka .iz { stroke: var(--k-cizgi); }
+.halka .dolu { stroke: var(--turkuaz); stroke-linecap: round; stroke-dasharray: 100 100; stroke-dashoffset: 32; }
+.halka .orta { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+.halka .sayi { font: 500 clamp(76px, 9vw, 112px)/1 var(--serif); font-variant-numeric: lining-nums tabular-nums; }
+.halka .sayi small { font-size: .32em; color: var(--k-grafit); margin-left: 4px; }
+.halka .etiket { margin-top: 10px; font-size: 13px; letter-spacing: .16em; color: var(--k-grafit); }
+
+/* 12-month plan */
+.yil-ust { display: flex; justify-content: space-between; align-items: end; gap: 32px; flex-wrap: wrap; }
+.lejant { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; color: var(--grafit); }
+.b-rozet { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--turkuaz-metin); font: 700 11px/1 var(--sans); color: var(--turkuaz-metin); flex: none; }
+.duraklar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 48px; align-items: start; }
+.durak { border-radius: var(--kose-kart); background: var(--yuzey); border: 1px solid var(--cizgi); }
+.durak:nth-child(2) { background: var(--zemin-sis); border-color: transparent; }
+.durak:nth-child(3) { background: var(--sis-2); border-color: transparent; }
+.durak:nth-child(4) { background: var(--sis-3); border-color: transparent; }
+.durak:nth-child(5) { background: var(--petrol); color: #fff; border-color: transparent; }
+.durak summary { list-style: none; cursor: default; padding: 22px 20px 0; display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+.durak summary::-webkit-details-marker { display: none; }
+.durak .evre { display: block; font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--turkuaz-metin); }
+.durak:nth-child(5) .evre { color: var(--k-turkuaz-metin); }
+.durak .ay { display: block; font: 600 32px/1.1 var(--serif); margin-top: 6px; }
+.durak .ac { display: none; }
+.durak ul { list-style: none; margin: 0; padding: 16px 20px 22px; display: grid; gap: 11px; font-size: 14.5px; line-height: 1.45; }
+.durak li { display: grid; grid-template-columns: 20px 1fr; gap: 10px; }
+.durak li::before { content: ""; width: 18px; height: 18px; margin-top: 1px; border-radius: 50%; background: var(--turkuaz) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M5 9.4l2.6 2.5L13 6.6' fill='none' stroke='%230b2f3a' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 18px no-repeat; }
+.durak li.b::before { background-color: transparent; box-shadow: inset 0 0 0 1.5px var(--turkuaz-metin); }
+.durak:nth-child(5) li.b::before { box-shadow: inset 0 0 0 1.5px var(--k-turkuaz-metin); }
+.durak li small { display: block; color: var(--grafit); font-size: 13.5px; margin-top: 3px; }
+.durak li .b-rozet { width: 18px; height: 18px; font-size: 9.5px; display: inline-grid; vertical-align: 1px; margin-left: 6px; }
+.durak:nth-child(5) .b-rozet { border-color: var(--k-turkuaz-metin); color: var(--k-turkuaz-metin); }
+.yil-alt { margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--cizgi); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px; }
+.yil-alt p { font-size: 14px; color: var(--grafit); max-width: 40em; }
+.yil-alt .linkler { display: flex; flex-wrap: wrap; gap: 4px 28px; align-items: center; }
+
+/* Doctor */
+.hekim .kap { display: grid; grid-template-columns: 1.25fr .75fr; gap: clamp(40px, 7vw, 112px); align-items: start; }
+.beyan p:first-child { font: 500 clamp(28px, 3.2vw, 42px)/1.22 var(--serif); text-wrap: balance; }
+.beyan .kaynak { margin-top: 24px; font: 600 15px/1.5 var(--sans); color: var(--altin-metin); }
+.olgular { margin: 0; display: grid; gap: 22px; }
+.olgular div { border-top: 1px solid var(--cizgi); padding-top: 14px; }
+.olgular dt { font-size: 13px; font-weight: 700; letter-spacing: .12em; color: var(--grafit); }
+.olgular dd { margin: 6px 0 0; font-size: 16px; }
+.olgular a { text-decoration: none; font-weight: 600; }
+
+/* FAQ */
+.sss .kap { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
+.sss-liste { border-top: 1px solid var(--cizgi-guclu); }
+.sss details { border-bottom: 1px solid var(--cizgi-guclu); }
+.sss summary {
+  list-style: none; cursor: pointer; position: relative; padding: 22px 48px 22px 0;
+  font: 600 23px/1.25 var(--serif); min-height: 44px;
+}
+.sss summary::-webkit-details-marker { display: none; }
+.sss summary::after {
+  content: ""; position: absolute; right: 6px; top: 50%; width: 16px; height: 16px; margin-top: -8px;
+  background: linear-gradient(var(--turkuaz-metin), var(--turkuaz-metin)) center / 16px 1.5px no-repeat,
+              linear-gradient(var(--turkuaz-metin), var(--turkuaz-metin)) center / 1.5px 16px no-repeat;
+  transition: transform .3s var(--ease-out);
+}
+.sss details[open] summary::after { transform: rotate(45deg); }
+.sss details p { padding: 0 48px 24px 0; color: var(--grafit); font-size: 16px; }
+
+/* Final call */
+.son { text-align: center; }
+.son h2 { color: #fff; }
+.son h2 em { font-style: normal; color: var(--k-turkuaz-metin); }
+.son .eylem { justify-content: center; }
+
+/* Footer */
+.alt { background: var(--petrol); color: var(--k-metin-ince); border-top: 1px solid var(--altin); padding: 64px 0 40px; font-size: 15px; }
+.alt .izgara { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 40px; }
+.alt h3 { font: 700 12px/1 var(--sans); letter-spacing: .16em; color: var(--k-turkuaz-metin); margin-bottom: 18px; }
+.alt ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.alt a { text-decoration: none; display: inline-flex; min-height: 36px; align-items: center; transition: color .2s ease; }
+.alt .marka b { color: #fff; } .alt .marka small { color: var(--k-grafit); }
+.alt .tanim { margin-top: 16px; max-width: 26em; color: var(--k-grafit); }
+.alt .yasal { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--k-cizgi); font-size: 13px; color: var(--k-grafit); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+.alt .yasal nav { display: flex; flex-wrap: wrap; gap: 0 20px; }
+
+/* Cookie bar: compact, never over the hero's call to action */
+.cerez {
+  position: fixed; z-index: 60; left: 16px; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom));
+  max-width: 560px; margin-left: auto;
+  background: var(--petrol); color: var(--k-metin-ince); border-radius: var(--kose-kart);
+  padding: 16px 18px; box-shadow: var(--golge-3);
+  display: flex; align-items: center; gap: 16px; font-size: 13.5px; line-height: 1.5;
+  transition: transform .35s var(--ease-out), opacity .25s ease;
+}
+.cerez a { color: var(--k-turkuaz-metin); }
+.cerez .dugmeler { display: flex; gap: 8px; flex: none; }
+.cerez button { min-height: 44px; padding: 0 16px; border-radius: 10px; font: 700 14px/1 var(--sans); cursor: pointer; border: 1px solid var(--k-cizgi); background: transparent; color: #fff; transition: transform .16s var(--ease-out); }
+.cerez button.kabul { background: var(--turkuaz); border-color: var(--turkuaz); color: var(--on-turkuaz); }
+.cerez button:active { transform: scale(.97); }
+.cerez.kapali { transform: translateY(calc(100% + 32px)); opacity: 0; pointer-events: none; }
+
+/* Mobile sticky action, appears after the hero */
+.yapiskan { display: none; }
+
+/* ---------- Tablet and phone ---------- */
+@media (max-width: 900px) {
+  .ust nav { display: none; }
+  .menu-ac {
+    display: grid; place-items: center; width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; margin-right: -10px;
+  }
+  .menu-ac span, .menu-ac span::before { display: block; width: 22px; height: 1.5px; background: var(--murekkep); position: relative; transition: transform .25s var(--ease-out); }
+  .menu-ac span::before { content: ""; position: absolute; top: 7px; }
+  .menu-ac span { transform: translateY(-3.5px); }
+  .ust.acik nav {
+    display: flex; flex-direction: column; align-items: stretch; gap: 0;
+    position: absolute; left: 0; right: 0; top: 76px; padding: 8px var(--gutter) 24px;
+    background: var(--zemin); border-bottom: 1px solid var(--cizgi); box-shadow: var(--golge-2);
+  }
+  .ust.acik nav a:not(.btn) { min-height: 52px; display: flex; align-items: center; font-size: 17px; border-bottom: 1px solid var(--cizgi); }
+  .ust.acik nav .btn { margin-top: 18px; min-height: 52px; }
+
+  .kahraman .kap { grid-template-columns: 1fr; }
+  .portre { justify-self: start; width: min(100%, 420px); margin-top: 8px; }
+  .kimlik { left: auto; right: -12px; bottom: -28px; }
+  .skor .kap, .hekim .kap, .sss .kap { grid-template-columns: 1fr; }
+  .halka { width: min(72%, 300px); }
+  .adimlar { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+  .adimlar::before { display: none; }
+
+  .duraklar { grid-template-columns: 1fr; gap: 10px; }
+  .durak summary { cursor: pointer; padding: 18px 20px; align-items: center; min-height: 64px; }
+  .durak[open] summary { padding-bottom: 0; }
+  .durak .ay { font-size: 28px; }
+  .durak .ac { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1px solid currentColor; opacity: .7; transition: transform .3s var(--ease-out); flex: none; }
+  .durak .ac::before { content: ""; width: 8px; height: 8px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); }
+  .durak[open] .ac { transform: rotate(180deg); }
+  .alt .izgara { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 560px) {
+  body { font-size: 16.5px; }
+  .ust .kap { height: 64px; }
+  .ust.acik nav { top: 64px; }
+  .marka img { width: 34px; height: 34px; }
+  .kahraman { padding-top: 20px; }
+  .kahraman h1 { font-size: clamp(44px, 13vw, 56px); }
+  .kahraman h1 em { display: block; }
+  .kahraman .giris { margin-top: 18px; }
+  .eylem { margin-top: 26px; }
+  .eylem .btn { flex: 1 1 100%; }
+  .not { margin-top: 14px; }
+  .portre { width: 100%; margin-top: 16px; }
+  .portre .cerceve { aspect-ratio: 5 / 5.4; }
+  .portre .halkalar { display: none; }
+  .kimlik { position: relative; left: 0; right: 0; bottom: 0; width: auto; margin: -56px 14px 0; }
+  .bolum { padding: 64px 0; }
+  .bolum h2 { font-size: clamp(32px, 9vw, 40px); }
+  .bolum .ozet { font-size: 16.5px; }
+  .adimlar { grid-template-columns: 1fr; gap: 0; margin-top: 36px; }
+  .adimlar li { display: grid; grid-template-columns: 40px 1fr; column-gap: 18px; padding-bottom: 26px; }
+  .adimlar li::before { grid-row: span 2; margin: 0; }
+  .adimlar li:not(:last-child)::after { content: ""; position: absolute; left: 19.5px; top: 46px; bottom: 6px; width: 1px; background: var(--cizgi-guclu); opacity: .45; }
+  .adimlar h3 { font-size: 23px; align-self: center; }
+  .adimlar-alt { margin-top: 18px; }
+  .skor .kap { gap: 40px; }
+  .halka { width: 220px; order: -1; justify-self: start; }
+  .yil-alt { flex-direction: column; align-items: flex-start; }
+  .sss summary { font-size: 20px; padding: 18px 40px 18px 0; }
+  .alt .izgara { grid-template-columns: 1fr; gap: 32px; }
+  .alt a { min-height: 44px; }
+  .marka { min-height: 44px; }
+  .cerez { left: 12px; right: 12px; flex-direction: column; align-items: stretch; gap: 12px; padding: 14px 16px 16px; }
+  .cerez .dugmeler button { flex: 1; }
+
+  .yapiskan {
+    display: flex; position: fixed; z-index: 50; left: 0; right: 0; bottom: 0;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    background: color-mix(in srgb, var(--zemin) 92%, transparent);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--cizgi);
+    transform: translateY(105%); transition: transform .35s var(--ease-out);
+  }
+  .yapiskan .btn { flex: 1; }
+  .yapiskan.gorunur { transform: none; }
+  body.yapiskan-acik { padding-bottom: 80px; }
+}
+
+/* ---------- Motion (only when the visitor allows it) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+
+  /* Hero entrance: once per visit, 0.5–0.9s steps about 100ms apart */
+  .js [data-enter] { animation: gir .6s var(--ease-out) both; animation-delay: var(--d, 0ms); }
+  @keyframes gir { from { opacity: 0; transform: translateY(var(--y, 12px)); } }
+  .js .portre .cerceve { animation: perde .95s var(--ease-out) 120ms both; }
+  .js .portre .cerceve img { animation: yakin 1.4s var(--ease-out) 120ms both; }
+  @keyframes perde { from { clip-path: inset(7% 7% 7% 7% round 28px); opacity: 0; } to { clip-path: inset(0 round var(--kose-foto)); opacity: 1; } }
+  @keyframes yakin { from { transform: scale(1.06); } }
+  .js .portre .halkalar circle { stroke-dasharray: 1; stroke-dashoffset: 1; animation: ciz 1.6s var(--ease-in-out) 300ms forwards; }
+  .js .portre .halkalar circle + circle { animation-delay: 450ms; }
+  @keyframes ciz { to { stroke-dashoffset: 0; } }
+
+  /* Score ring fills once when it is on screen */
+  .js .halka .dolu { stroke-dashoffset: 100; transition: stroke-dashoffset 1.6s var(--ease-out); }
+  .js .halka.dolsun .dolu { stroke-dashoffset: 32; }
+
+  /* FAQ and plan panels open smoothly */
+  .sss details::details-content, .durak::details-content {
+    block-size: 0; overflow: hidden;
+    transition: block-size .32s var(--ease-out), content-visibility .32s allow-discrete;
+  }
+  .sss details[open]::details-content, .durak[open]::details-content { block-size: auto; }
+
+  .menu-ac span, .menu-ac span::before { transition: transform .25s var(--ease-out); }
+}
+.ust.acik .menu-ac span { transform: rotate(45deg); }
+.ust.acik .menu-ac span::before { transform: translateY(-7px) rotate(-90deg); }
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+
+<header class="ust" id="ust">
+  <div class="kap">
+    <a class="marka" href="#" aria-label="AG Longevity ana sayfa">
+      <img src="ag-logo.svg" alt="" width="38" height="38">
+      <span><b>AG LONGEVITY</b><small>DR. AYTÜL GENÇER</small></span>
+    </a>
+    <button class="menu-ac" aria-expanded="false" aria-controls="ana-menu" aria-label="Menüyü aç"><span></span></button>
+    <nav id="ana-menu" aria-label="Ana menü">
+      <a href="#nasil">Nasıl çalışır</a>
+      <a href="#yolculuk">12 aylık takip</a>
+      <a href="https://www.aglongevity.com/blog.html">Bilgi Merkezi</a>
+      <a href="https://www.draytulgencer.com/randevu.html">Randevu</a>
+      <a class="btn" href="https://www.aglongevity.com/skor.html">Skorumu öğren</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="kahraman" id="kahraman">
+    <div class="kap">
+      <div>
+        <p class="imza" data-enter style="--d:0ms">Dr. Aytül Gençer · Maslak, İstanbul</p>
+        <h1 data-enter style="--d:80ms">Hücreleriniz <em>kaç yaşında?</em></h1>
+        <p class="giris" data-enter style="--d:180ms">Uyku, enerji ve stres, hareket, beslenme, metabolik denge ve önleyici takip. Altı alanda nerede durduğunuzu 12 kısa soruda görün; sonuç hemen ekranda. Dilerseniz size özel 14 günlük planı e-postanıza gönderelim.</p>
+        <div class="eylem" data-enter style="--d:260ms">
+          <a class="btn" href="https://www.aglongevity.com/skor.html">Skorumu öğren
+            <svg viewBox="0 0 22 10" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+          <a class="metin-link" href="#nasil">Nasıl çalışır?</a>
+        </div>
+        <p class="not" data-enter style="--d:320ms">Yaklaşık 3 dakika. Ücretsiz; iletişim bilgisi istenmez.</p>
+      </div>
+
+      <figure class="portre" style="margin:0">
+        <svg class="halkalar" viewBox="0 0 280 200" aria-hidden="true">
+          <circle cx="100" cy="100" r="92" pathLength="1" stroke="#0c3a41" opacity=".35"/>
+          <circle cx="180" cy="100" r="92" pathLength="1" stroke="#00b9c3" opacity=".7"/>
+        </svg>
+        <div class="cerceve">
+          <img src="dr-aytul-gencer.jpg" alt="Dr. Aytül Gençer, beyaz önlüğüyle kliniğinde" width="900" height="1100" fetchpriority="high">
+        </div>
+        <div class="kimlik" data-enter style="--d:520ms; --y:8px">
+          <strong>Dr. Aytül Gençer</strong>
+          <ul>
+            <li>40 yılı aşkın hekimlik deneyimi</li>
+            <li>Cleveland Clinic fonksiyonel tıp eğitimi</li>
+            <li>Dokuz Eylül Üniversitesi Tıp Fakültesi</li>
+          </ul>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="bolum sis" id="nasil" aria-labelledby="nasil-b">
+    <div class="kap">
+      <h2 id="nasil-b">Testten kişisel plana dört adım</h2>
+      <ol class="adimlar">
+        <li><h3>Testi çözün</h3><p>12 soru, tek seçim. İletişim bilgisi istenmez.</p></li>
+        <li><h3>Skorunuzu görün</h3><p>100 üzerinden skorunuz ve altı alandaki durumunuz anında ekranda.</p></li>
+        <li><h3>Planınızı alın</h3><p>İsterseniz en zayıf iki alanınıza odaklanan 14 günlük planı ücretsiz e-postanıza gönderelim.</p></li>
+        <li><h3>14. gün yeniden ölçün</h3><p>Testi tekrar çözüp ilerlemenizi görün. Uzmana danışmak isterseniz WhatsApp hep açık.</p></li>
+      </ol>
+      <div class="adimlar-alt">
+        <a class="btn" href="https://www.aglongevity.com/skor.html">Skorumu öğren
+          <svg viewBox="0 0 22 10" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bolum koyu skor" aria-labelledby="skor-b">
+    <div class="kap">
+      <div>
+        <h2 id="skor-b">Skorunuz, alanlarınız ve ilk adımlarınız</h2>
+        <p class="ozet">Sonuçta neyin iyi gittiğini, hangi iki alanın sizi geri tuttuğunu ve bugün başlayabileceğiniz küçük adımları görürsünüz. Ücret yok, randevu şartı yok.</p>
+        <div class="eylem">
+          <a class="btn" href="https://www.aglongevity.com/skor.html">Skorumu öğren
+            <svg viewBox="0 0 22 10" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+        </div>
+        <p class="uyari">Bu skor bir tanı aracı değildir; bilgilendirme amaçlıdır.</p>
+      </div>
+      <div class="halka" id="halka" role="img" aria-label="Örnek skor: 100 üzerinden 68">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <circle class="iz" cx="60" cy="60" r="52" pathLength="100"/>
+          <circle class="dolu" cx="60" cy="60" r="52" pathLength="100"/>
+        </svg>
+        <div class="orta" aria-hidden="true">
+          <span class="sayi"><span id="sayi">68</span><small>/100</small></span>
+          <span class="etiket">ÖRNEK SKOR</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bolum" id="yolculuk" aria-labelledby="yil-b">
+    <div class="kap">
+      <div class="yil-ust">
+        <div>
+          <h2 id="yil-b">İlk görüşmeden yıl sonuna, 12 aylık takip</h2>
+          <p class="ozet">Beş durakta sizinle birlikte ilerleyen bir plan.</p>
+        </div>
+        <span class="lejant"><span class="b-rozet" aria-hidden="true">B</span> Yalnız Bütüncül Takip protokolünde</span>
+      </div>
+
+      <div class="duraklar">
+        <details class="durak" open>
+          <summary><span><span class="evre">BAŞLANGIÇ · KEŞİF</span><span class="ay">1. Ay</span></span><span class="ac" aria-hidden="true"></span></summary>
+          <ul>
+            <li>Kişisel takip sorumlunuzla tanışma</li>
+            <li>Ön görüşme: beklentileriniz ve öncelikleriniz</li>
+            <li>Muayene öncesi sağlık formu ve ayrıntılı öykü</li>
+            <li>Maslak kliniğinde hekim muayenesi</li>
+            <li>Kapsamlı kan paneli ile başlangıç değerleriniz</li>
+            <li class="b"><span>İleri tahliller<span class="b-rozet" aria-label="Yalnız Bütüncül Takip">B</span><small>Hormon metabolitleri testi, amino asit profili</small></span></li>
+            <li><span>Sonuç görüşmesi ve kişisel planınız<small>Beslenme listesi; uyku, hareket ve stres düzeni; gerekirse tedavi ve takviye önerileri</small></span></li>
+          </ul>
+        </details>
+        <details class="durak">
+          <summary><span><span class="evre">İLK KONTROL</span><span class="ay">3. Ay</span></span><span class="ac" aria-hidden="true"></span></summary>
+          <ul>
+            <li>Online kontrol görüşmesi</li>
+            <li>Plana uyum ve yakınmaların değerlendirilmesi</li>
+            <li>Beslenme listesinin güncellenmesi</li>
+            <li>Belirli saatlerde mesajla soru hakkı</li>
+          </ul>
+        </details>
+        <details class="durak">
+          <summary><span><span class="evre">YENİDEN ÖLÇÜM</span><span class="ay">6. Ay</span></span><span class="ac" aria-hidden="true"></span></summary>
+          <ul>
+            <li>Takip muayenesi</li>
+            <li>Kan paneli tekrarı ve başlangıç değerleriyle karşılaştırma</li>
+            <li class="b"><span>Gerekirse ileri tahlil tekrarı<span class="b-rozet" aria-label="Yalnız Bütüncül Takip">B</span></span></li>
+            <li>Kişisel planın güncellenmesi</li>
+          </ul>
+        </details>
+        <details class="durak">
+          <summary><span><span class="evre">ARA KONTROL</span><span class="ay">9. Ay</span></span><span class="ac" aria-hidden="true"></span></summary>
+          <ul>
+            <li>Online kontrol görüşmesi</li>
+            <li>Plan ayarlamaları</li>
+            <li class="b"><span>Öncelikli randevu<span class="b-rozet" aria-label="Yalnız Bütüncül Takip">B</span></span></li>
+          </ul>
+        </details>
+        <details class="durak">
+          <summary><span><span class="evre">YIL SONU</span><span class="ay">12. Ay</span></span><span class="ac" aria-hidden="true"></span></summary>
+          <ul>
+            <li>Takip muayenesi ve kan paneli</li>
+            <li class="b"><span>Yıl sonu ayrıntılı değerlendirme görüşmesi<span class="b-rozet" aria-label="Yalnız Bütüncül Takip">B</span></span></li>
+            <li>Bir yılın karşılaştırması ve yeni yılın planı</li>
+          </ul>
+        </details>
+      </div>
+
+      <div class="yil-alt">
+        <p>Akış örnek bir yılı gösterir. Adımlar, seçtiğiniz protokole ve hekim değerlendirmesine göre size özel planlanır; Keşif protokolü 1. ayı kapsar.</p>
+        <div class="linkler">
+          <a class="metin-link" href="https://www.draytulgencer.com/hizmetler.html#protokoller">Protokol ayrıntıları</a>
+          <a class="metin-link" href="https://wa.me/905332946274?text=Merhaba%2C%2012%20ayl%C4%B1k%20takip%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.">WhatsApp'tan bilgi alın</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bolum sis hekim" aria-labelledby="hekim-b">
+    <h2 id="hekim-b" class="gizli">Hekiminiz</h2>
+    <div class="kap">
+      <div class="beyan">
+        <p>Sağlık öykünüzü, beslenmenizi ve yaşam alışkanlıklarınızı birlikte değerlendiren, kişiye özel bir longevity ve fonksiyonel tıp yaklaşımı.</p>
+        <p class="kaynak">Test ve öneriler Dr. Aytül Gençer'in longevity yaklaşımıyla hazırlandı.</p>
+      </div>
+      <dl class="olgular">
+        <div><dt>KLİNİK</dt><dd>Sun Plaza, Maslak Mah. Bilim Sk. No:5, Sarıyer/İstanbul</dd></div>
+        <div><dt>ÖN GÖRÜŞME</dt><dd>Klinikte ya da 30 dakikalık görüntülü görüşmeyle</dd></div>
+        <div><dt>İLETİŞİM</dt><dd><a class="metin-link" href="https://www.draytulgencer.com/randevu.html">Randevu planlayın</a> · <a class="metin-link" href="https://wa.me/905332946274">WhatsApp</a></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="bolum sss" aria-labelledby="sss-b">
+    <div class="kap">
+      <h2 id="sss-b">Merak edilenler</h2>
+      <div class="sss-liste">
+        <details><summary>Longevity Skoru neyi ölçer?</summary><p>Uyku, enerji ve stres, hareket, beslenme, metabolik denge ve önleyici takip alanlarındaki alışkanlıklarınızı 100 üzerinden puanlar. Tanı aracı değildir; nereden başlayabileceğinizi gösterir.</p></details>
+        <details><summary>Takip protokolleri neleri kapsar?</summary><p>Keşif başlangıç değerlendirmesini; Yıllık Takip ve Bütüncül Takip ise 12 ay boyunca 6 ayda bir muayene ve kan paneli tekrarını, 3 ayda bir online kontrolü kapsar.</p></details>
+        <details><summary>Hangi tahliller yapılıyor?</summary><p>Kadın ve erkek için ayrı hazırlanmış, 40'ı aşkın testlik bir biyokimya paneliyle başlanır; gerekirse hormon metabolitleri testi ve amino asit profili eklenir.</p></details>
+        <details><summary>Ön görüşme nasıl yapılıyor?</summary><p>30 dakikalık görüntülü bir görüşmedir. Skorunuz, şikâyetleriniz ve hedefleriniz konuşulur; size uygun protokol birlikte belirlenir.</p></details>
+        <details><summary>Verilerim nasıl korunuyor?</summary><p>Yanıtlarınız yalnızca açık rızanızla, değerlendirme ve sizinle iletişim amacıyla işlenir. Ayrıntılar Aydınlatma Metni'nde yer alır.</p></details>
+        <details><summary>Klinik nerede?</summary><p>Sun Plaza, Maslak Mah. Bilim Sk. No:5, 34398 Sarıyer/İstanbul. Ön görüşmeler online olarak da yapılabilir.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="bolum koyu son" id="son" aria-labelledby="son-b">
+    <div class="kap">
+      <h2 id="son-b">3 dakikanızı <em>kendinize</em> ayırın.</h2>
+      <div class="eylem">
+        <a class="btn" href="https://www.aglongevity.com/skor.html">Skorumu öğren
+          <svg viewBox="0 0 22 10" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="alt">
+  <div class="kap">
+    <div class="izgara">
+      <div>
+        <a class="marka" href="#"><img src="ag-logo-acik.svg" alt="" width="38" height="38"><span><b>AG LONGEVITY</b><small>DR. AYTÜL GENÇER</small></span></a>
+        <p class="tanim">Kişiselleştirilmiş longevity ve fonksiyonel tıp yaklaşımı.</p>
+      </div>
+      <div><h3>KEŞFET</h3><ul>
+        <li><a href="https://www.aglongevity.com/skor.html">Longevity Skoru</a></li>
+        <li><a href="https://www.draytulgencer.com/hizmetler.html#protokoller">Takip Protokolleri</a></li>
+        <li><a href="https://www.draytulgencer.com/randevu.html">Randevu</a></li>
+        <li><a href="https://www.aglongevity.com/blog.html">Bilgi Merkezi</a></li>
+        <li><a href="https://www.aglongevity.com/hastaliklar.html">Hastalıklar A–Z</a></li>
+      </ul></div>
+      <div><h3>İLETİŞİM</h3><ul>
+        <li><a href="https://wa.me/905332946274">WhatsApp</a></li>
+        <li><a href="tel:+905332946274">+90 533 294 62 74</a></li>
+        <li><a href="https://www.instagram.com/aglongevity">Instagram · @aglongevity</a></li>
+      </ul></div>
+      <div><h3>KLİNİK</h3><p>Sun Plaza, Maslak Mah. Bilim Sk. No:5<br>34398 Sarıyer/İstanbul</p></div>
+    </div>
+    <div class="yasal">
+      <span>© 2026 AG Longevity · Dr. Aytül Gençer. Bu sitedeki içerikler bilgilendirme amaçlıdır; tanı ve tedavi yerine geçmez.</span>
+      <nav aria-label="Yasal">
+        <a href="https://www.aglongevity.com/aydinlatma.html">KVKK Aydınlatma Metni</a>
+        <a href="https://www.aglongevity.com/acik-riza.html">Açık Rıza Metni</a>
+        <a href="https://www.aglongevity.com/cerez-politikasi.html">Çerez Politikası</a>
+        <a href="https://www.aglongevity.com/kullanim-kosullari.html">Kullanım Koşulları</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<div class="cerez" id="cerez" role="region" aria-label="Çerez tercihi">
+  <p>Zorunlu çerezlerin yanında, reklam ölçümü için Meta Pixel'i yalnızca onayınızla kullanıyoruz. Anket yanıtlarınız reklam araçlarına gönderilmez. <a href="https://www.aglongevity.com/cerez-politikasi.html">Çerez Politikası</a></p>
+  <div class="dugmeler">
+    <button type="button" data-cerez>Reddet</button>
+    <button type="button" class="kabul" data-cerez>Kabul et</button>
+  </div>
+</div>
+
+<div class="yapiskan" id="yapiskan" aria-hidden="true">
+  <a class="btn" href="https://www.aglongevity.com/skor.html" tabindex="-1">Skorumu öğren
+    <svg viewBox="0 0 22 10" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+</div>
+
+<script>
+(() => {
+  const ust = document.getElementById('ust');
+  const menu = ust.querySelector('.menu-ac');
+  const azHareket = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Header border once the page scrolls
+  const isaret = () => ust.classList.toggle('kaydi', scrollY > 8);
+  addEventListener('scroll', isaret, { passive: true }); isaret();
+
+  // Mobile menu
+  menu.addEventListener('click', () => {
+    const acik = ust.classList.toggle('acik');
+    menu.setAttribute('aria-expanded', acik);
+    menu.setAttribute('aria-label', acik ? 'Menüyü kapat' : 'Menüyü aç');
+  });
+  ust.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => {
+    ust.classList.remove('acik'); menu.setAttribute('aria-expanded', 'false');
+  }));
+
+  // 12-month plan: always open on wide screens, accordion on narrow ones
+  const genis = matchMedia('(min-width: 901px)');
+  const duraklar = [...document.querySelectorAll('.durak')];
+  const duzen = () => duraklar.forEach((d, i) => { d.open = genis.matches || i === 0; });
+  duzen(); genis.addEventListener('change', duzen);
+  duraklar.forEach(d => d.querySelector('summary').addEventListener('click', e => { if (genis.matches) e.preventDefault(); }));
+
+  // Score ring: fill once and count to 68 when it is on screen
+  const halka = document.getElementById('halka');
+  const sayi = document.getElementById('sayi');
+  if (!azHareket && 'IntersectionObserver' in window) {
+    sayi.textContent = '0';
+    new IntersectionObserver((girdiler, g) => {
+      if (!girdiler[0].isIntersecting) return;
+      g.disconnect();
+      halka.classList.add('dolsun');
+      const t0 = performance.now(), sure = 1600, hedef = 68;
+      const ease = t => 1 - Math.pow(1 - t, 4);
+      const kare = now => {
+        const t = Math.min(1, (now - t0) / sure);
+        sayi.textContent = Math.round(hedef * ease(t));
+        if (t < 1) requestAnimationFrame(kare);
+      };
+      requestAnimationFrame(kare);
+    }, { threshold: 0.5 }).observe(halka);
+  } else {
+    halka.classList.add('dolsun');
+  }
+
+  // Cookie bar (demo only: the choice is not stored)
+  const cerez = document.getElementById('cerez');
+  cerez.querySelectorAll('[data-cerez]').forEach(b => b.addEventListener('click', () => {
+    cerez.classList.add('kapali'); guncelle();
+  }));
+
+  // Sticky action on phones: after the hero, hidden near the final call and while the cookie bar is up
+  const yapiskan = document.getElementById('yapiskan');
+  let heroGorunur = true, sonGorunur = false, altGorunur = false;
+  const guncelle = () => {
+    const goster = !heroGorunur && !sonGorunur && !altGorunur && cerez.classList.contains('kapali');
+    yapiskan.classList.toggle('gorunur', goster);
+    yapiskan.setAttribute('aria-hidden', !goster);
+    yapiskan.querySelector('a').tabIndex = goster ? 0 : -1;
+    document.body.classList.toggle('yapiskan-acik', goster);
+  };
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => { heroGorunur = e.isIntersecting; guncelle(); })
+      .observe(document.querySelector('.kahraman .eylem'));
+    new IntersectionObserver(([e]) => { sonGorunur = e.isIntersecting; guncelle(); })
+      .observe(document.getElementById('son'));
+    new IntersectionObserver(([e]) => { altGorunur = e.isIntersecting; guncelle(); })
+      .observe(document.querySelector('.alt'));
+  }
+})();
+</script>
+</body>
+</html>

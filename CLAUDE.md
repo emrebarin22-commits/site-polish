@@ -37,8 +37,8 @@ to the specialist skills and follows the workflow below.
    - Use `mobile-native` for the phone layout.
 4. **Verify**: `node scripts/capture.js file://$PWD/demos/<slug>/index.html demos/<slug>`,
    then rename the files to `after-*.png`. Compare them with the `before` captures and fix any regressions.
-5. **Present**: publish the demo as an Artifact so it can be opened in a browser,
-   with a short before/after summary. Move the URL to "Done" in `sites.md`.
+5. **Present**: send the demo files and `before-after.jpg` to the owner with a short summary.
+   Demos carry a real brand, so they are delivered as files, not published as public pages. Move the URL to "Done" in `sites.md`.
 
 ## Rules
 
