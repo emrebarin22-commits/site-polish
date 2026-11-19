@@ -5,7 +5,6 @@ Then tell Claude: "polish the sites in sites.md" (or name one).
 
 ## Queue
 
-- https://turkanomad.com
 
 <!-- example:
 - https://example.com — portfolio, keep the brand colors
@@ -13,3 +12,4 @@ Then tell Claude: "polish the sites in sites.md" (or name one).
 
 ## Done
 
+- https://turkanomad.com — demo in demos/turkanomad-com (2026-11-19)

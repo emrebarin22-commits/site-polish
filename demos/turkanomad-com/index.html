@@ -1,0 +1,816 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TurkaNomad Demo</title>
+<meta name="description" content="Şehrini seç, orada yaşayan ve yakında gelecek Türklerle tanış, Türkçe konuşan profesyonellere ulaş. Üyelik ücretsiz.">
+<meta name="theme-color" content="#faf8f4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23c92132'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-family='Montserrat,Arial,sans-serif' font-weight='800' font-size='44' fill='%23fff'%3Et%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf8f4; --paper-2:#f3f0e8; --card:#ffffff; --ink:#1f1f1d; --ink-2:#3a3833;
+  --muted:#6a665e; --rule:#e2ddd2; --rule-2:#d9d4c9; --tint:#f0ece1;
+  --red:#a3151b; --red-d:#86100f; --red-mark:#c92132; --red-tint:#f7e7e4;
+  --ok:#1f6b45; --ok-tint:#e3f1e8; --warn:#8a5a00; --warn-tint:#f8eed6;
+  --ease:cubic-bezier(.23,1,.32,1); --r:14px; --r-s:10px;
+  --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
+  --shadow:0 1px 2px rgba(31,31,29,.05),0 8px 24px -12px rgba(31,31,29,.18);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#171614; --paper-2:#1f1d1a; --card:#232120; --ink:#f3f0e8; --ink-2:#d9d4c9;
+  --muted:#a8a296; --rule:#33302b; --rule-2:#403c36; --tint:#2a2723;
+  --red:#e2505a; --red-d:#f06a73; --red-mark:#c92132; --red-tint:#3a1d1e;
+  --ok:#6fc496; --ok-tint:#1d2e24; --warn:#e4b45a; --warn-tint:#33291a;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -12px rgba(0,0,0,.6); color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --paper:#171614; --paper-2:#1f1d1a; --card:#232120; --ink:#f3f0e8; --ink-2:#d9d4c9;
+  --muted:#a8a296; --rule:#33302b; --rule-2:#403c36; --tint:#2a2723;
+  --red:#e2505a; --red-d:#f06a73; --red-tint:#3a1d1e;
+  --ok:#6fc496; --ok-tint:#1d2e24; --warn:#e4b45a; --warn-tint:#33291a;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -12px rgba(0,0,0,.6); color-scheme:dark;}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:80px}
+body{margin:0;font-family:Montserrat,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.55;
+  background:var(--paper);color:var(--ink);-webkit-tap-highlight-color:transparent;font-feature-settings:"tnum" 0}
+h1,h2,h3,p,ul,dl,dd,figure{margin:0}
+ul{padding:0;list-style:none}
+a{color:inherit}
+img{display:block;max-width:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+::selection{background:var(--red);color:#fff}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:6px}
+.num{font-variant-numeric:tabular-nums}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:8px;top:-60px;background:var(--ink);color:var(--paper);padding:10px 14px;z-index:99;border-radius:8px}
+.skip:focus{top:8px}
+.wrap{max-width:1200px;margin-inline:auto;padding-inline:16px}
+@media (min-width:768px){.wrap{padding-inline:32px}}
+
+/* ---------- top bar ---------- */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--rule);padding-top:var(--safe-t)}
+.top .wrap{display:flex;align-items:center;gap:12px;min-height:60px}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:800;letter-spacing:-.02em;font-size:17px}
+.mk{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--red-mark);color:#fff;font-weight:800;font-size:18px;line-height:1}
+.dt-nav{display:none;gap:2px;margin-left:20px}
+.dt-nav a{position:relative;padding:8px 12px;text-decoration:none;font-weight:600;font-size:14px;color:var(--muted);border-radius:8px;transition:color .15s,background-color .15s}
+.dt-nav a:hover{color:var(--ink);background:var(--tint)}
+.dt-nav a.on{color:var(--ink)}
+.dt-nav a.on::after{content:"";position:absolute;left:12px;right:12px;bottom:-11px;height:2px;background:var(--red);border-radius:2px}
+.dt-nav .new{font-size:10px;font-weight:700;color:var(--red);margin-left:5px;vertical-align:2px}
+.top-r{margin-left:auto;display:flex;align-items:center;gap:6px}
+@media (min-width:900px){.dt-nav{display:flex}}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;
+  border:1px solid var(--rule-2);background:var(--card);color:var(--ink);font-weight:600;font-size:14px;text-decoration:none;cursor:pointer;
+  transition:transform .16s var(--ease),background-color .15s,border-color .15s,box-shadow .15s;user-select:none;-webkit-user-select:none}
+.btn:hover{border-color:var(--ink)}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+.btn.primary:hover{background:var(--red-d);border-color:var(--red-d)}
+.btn.dark{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.btn.ghost{background:transparent;border-color:transparent}
+.btn.ghost:hover{background:var(--tint)}
+.btn.sm{min-height:36px;padding:0 14px;font-size:13px}
+.btn[disabled]{opacity:.5;pointer-events:none}
+.btn svg{width:18px;height:18px;flex:none}
+.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.link{color:var(--red);font-weight:600;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.admin-pill{display:none}
+@media (min-width:600px){.admin-pill{display:inline-flex}}
+
+/* ---------- views ---------- */
+main{min-height:calc(100dvh - 60px);padding-bottom:calc(88px + var(--safe-b))}
+@media (min-width:900px){main{padding-bottom:64px}}
+.view{animation:viewIn .24s var(--ease) both}
+@keyframes viewIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ---------- Keşfet ---------- */
+.intro{padding:28px 0 16px}
+.intro h1{font-size:clamp(28px,4.4vw,48px);line-height:1.08;letter-spacing:-.035em;font-weight:800;max-width:16ch;text-wrap:balance}
+.intro h1 em{font-style:normal;color:var(--red)}
+.intro p{margin-top:14px;color:var(--muted);font-size:16px;max-width:52ch}
+.intro-row{display:grid;gap:20px;align-items:end}
+@media (min-width:900px){.intro{padding:64px 0 36px}.intro-row{grid-template-columns:1.2fr .8fr}}
+.stats{display:flex;gap:28px;flex-wrap:wrap}
+.stat b{display:block;font-size:28px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}
+.stat span{font-size:13px;color:var(--muted)}
+.toolbar{position:sticky;top:calc(60px + var(--safe-t));z-index:10;background:var(--paper);padding:12px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.search{position:relative;flex:1 1 280px}
+.search .ic{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);width:18px;height:18px}
+.search input,.field input,.field select,.field textarea,.select{width:100%;min-height:46px;border:1px solid var(--rule-2);background:var(--card);border-radius:12px;padding:0 14px;font-size:16px;transition:border-color .15s,box-shadow .15s}
+.search input{padding-left:42px}
+.search input:focus,.field input:focus,.field select:focus,.field textarea:focus,.select:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px color-mix(in srgb,var(--ink) 12%,transparent)}
+.search input::placeholder,.field ::placeholder{color:var(--muted)}
+.seg{display:inline-flex;padding:3px;background:var(--tint);border-radius:999px;border:1px solid var(--rule)}
+.seg button{border:0;background:transparent;min-height:38px;padding:0 16px;border-radius:999px;font-weight:600;font-size:13px;color:var(--muted);cursor:pointer;transition:color .15s}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08),0 0 0 1px var(--rule)}
+.sec-h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;margin:28px 0 14px}
+.sec-h h2{font-size:20px;font-weight:700;letter-spacing:-.02em}
+.sec-h p{color:var(--muted);font-size:13px}
+
+.grid-open{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:599px){.city h3{font-size:18px}.city .cap{padding:40px 12px 12px}.city .cnt{gap:10px;font-size:12px}}
+@media (min-width:1024px){.grid-open{grid-template-columns:repeat(4,1fr)}}
+.city{position:relative;display:block;text-decoration:none;border-radius:var(--r);overflow:hidden;background:var(--card);
+  box-shadow:var(--shadow);transition:transform .22s var(--ease),box-shadow .22s var(--ease)}
+.city .ph{aspect-ratio:4/5;overflow:hidden;background:var(--tint)}
+.city img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.city .cap{position:absolute;inset:auto 0 0 0;padding:56px 16px 16px;color:#fff;
+  background:linear-gradient(to top,rgba(10,10,9,.78),rgba(10,10,9,0))}
+.city h3{font-size:22px;font-weight:800;letter-spacing:-.025em;line-height:1.1}
+.city .cc{font-size:13px;opacity:.85;margin-top:2px}
+.city .cnt{display:flex;gap:14px;margin-top:10px;font-size:13px;font-variant-numeric:tabular-nums}
+.city .cnt b{font-weight:700}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#5ad18a;margin-right:6px;vertical-align:1px;box-shadow:0 0 0 3px rgba(90,209,138,.25)}
+@media (hover:hover) and (pointer:fine){
+  .city:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(31,31,29,.06),0 18px 36px -16px rgba(31,31,29,.35)}
+  .city:hover img{transform:scale(1.03)}}
+
+.grid-more{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:599px){.grid-more{grid-template-columns:minmax(0,1fr)}}
+@media (min-width:768px){.grid-more{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1024px){.grid-more{grid-template-columns:repeat(4,1fr)}}
+.mini{display:flex;align-items:center;gap:12px;padding:8px;border-radius:12px;text-decoration:none;background:var(--card);border:1px solid var(--rule);
+  transition:border-color .15s,transform .2s var(--ease)}
+.mini img{width:56px;height:56px;border-radius:9px;object-fit:cover;flex:none;background:var(--tint)}
+.mini b{display:block;font-weight:700;font-size:15px;letter-spacing:-.01em;line-height:1.2}
+.mini>div>span{font-size:12px;color:var(--muted);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini>div{min-width:0}
+@media (hover:hover){.mini:hover{border-color:var(--ink);transform:translateY(-1px)}}
+.list-table{width:100%;border-collapse:collapse;font-size:14px}
+.list-table th{text-align:left;font-size:12px;color:var(--muted);font-weight:600;padding:10px 12px;border-bottom:1px solid var(--rule)}
+.list-table td{padding:12px;border-bottom:1px solid var(--rule);font-variant-numeric:tabular-nums}
+.list-table tr[data-href]{cursor:pointer}
+.list-table tr[data-href]:hover td{background:var(--tint)}
+.mapbox{border-radius:var(--r);border:1px solid var(--rule);background:var(--card);overflow:hidden}
+.mapbox svg{width:100%;height:auto;display:block}
+.mapbox .pin{cursor:pointer}
+.mapbox .pin circle{transition:r .15s}
+.empty{padding:40px 24px;text-align:center;border:1px dashed var(--rule-2);border-radius:var(--r);color:var(--muted)}
+.empty strong{color:var(--ink);display:block;margin-bottom:6px;font-size:16px}
+.empty .btn{margin-top:16px}
+
+/* ---------- City page ---------- */
+.back{display:inline-flex;align-items:center;gap:4px;min-height:44px;margin:12px 0 0 -8px;padding:0 8px;border:0;background:none;font-weight:600;cursor:pointer;text-decoration:none;border-radius:8px}
+.back:hover{background:var(--tint)}
+.c-hero{position:relative;border-radius:var(--r);overflow:hidden;margin-top:8px;aspect-ratio:16/9;max-height:340px;width:100%;background:var(--tint)}
+@media (max-width:599px){.c-hero{aspect-ratio:4/3}}
+.c-hero img{width:100%;height:100%;object-fit:cover}
+.c-hero .cap{position:absolute;inset:auto 0 0 0;padding:72px 20px 20px;color:#fff;background:linear-gradient(to top,rgba(10,10,9,.8),rgba(10,10,9,0))}
+.c-hero h1{font-size:clamp(30px,5vw,52px);font-weight:800;letter-spacing:-.035em;line-height:1}
+.c-hero p{opacity:.88;margin-top:6px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--rule);margin-top:20px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{position:relative;padding:12px 14px;text-decoration:none;font-weight:600;font-size:14px;color:var(--muted);white-space:nowrap}
+.tabs a[aria-current="page"]{color:var(--ink)}
+.tabs a[aria-current="page"]::after{content:"";position:absolute;left:14px;right:14px;bottom:-1px;height:2px;background:var(--red)}
+.cols{display:grid;gap:24px;margin-top:24px}
+@media (min-width:900px){.cols{grid-template-columns:1fr 340px;align-items:start}}
+.panel{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);padding:20px}
+.panel h2{font-size:17px;font-weight:700;letter-spacing:-.015em;margin-bottom:12px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kv div{background:var(--paper-2);border-radius:var(--r-s);padding:14px}
+.kv b{display:block;font-size:26px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}
+.kv span{font-size:12px;color:var(--muted)}
+.note{font-size:13px;color:var(--muted);margin-top:12px}
+
+/* ---------- Professionals ---------- */
+.p-head{display:grid;gap:16px;padding:32px 0 8px;align-items:end}
+@media (min-width:900px){.p-head{grid-template-columns:1fr auto;padding-top:48px}}
+.p-head h1{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-.035em;line-height:1.08;text-wrap:balance}
+.p-head p{color:var(--muted);margin-top:10px;max-width:56ch}
+.filters{display:grid;gap:10px;grid-template-columns:1fr;padding:16px 0 8px;background:var(--paper);z-index:9}
+@media (min-width:768px){.filters{grid-template-columns:220px 1fr;position:sticky;top:calc(60px + var(--safe-t))}}
+.select{appearance:none;-webkit-appearance:none;padding-right:40px;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%236a665e' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:none;overscroll-behavior-x:contain}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--rule-2);background:var(--card);font-weight:600;font-size:13px;cursor:pointer;color:var(--ink-2);transition:background-color .15s,color .15s,border-color .15s,transform .16s var(--ease)}
+.chip:active{transform:scale(.96)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip .n{opacity:.6;margin-left:4px;font-variant-numeric:tabular-nums}
+.result-meta{font-size:13px;color:var(--muted);margin:6px 0 14px}
+.pros{display:grid;gap:12px;grid-template-columns:1fr}
+@media (min-width:768px){.pros{grid-template-columns:1fr 1fr}}
+@media (min-width:1100px){.pros{grid-template-columns:repeat(3,1fr)}}
+.pro{display:flex;flex-direction:column;gap:12px;background:var(--card);border:1px solid var(--rule);border-radius:var(--r);padding:18px;
+  transition:border-color .15s,transform .22s var(--ease),box-shadow .22s var(--ease);animation:proIn .28s var(--ease) both}
+@keyframes proIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (hover:hover){.pro:hover{border-color:var(--rule-2);transform:translateY(-2px);box-shadow:var(--shadow)}}
+.pro-top{display:flex;gap:12px;align-items:flex-start}
+.av{width:48px;height:48px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:700;font-size:16px;color:var(--ink);background:var(--tint);letter-spacing:-.02em}
+.pro h3{font-size:16px;font-weight:700;letter-spacing:-.015em;line-height:1.25;overflow-wrap:anywhere}
+.pro .cat{font-size:13px;color:var(--muted)}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--ok-tint);color:var(--ok);white-space:nowrap}
+.badge.warn{background:var(--warn-tint);color:var(--warn)}
+.badge.red{background:var(--red-tint);color:var(--red)}
+.badge.grey{background:var(--tint);color:var(--muted)}
+.badge svg{width:12px;height:12px}
+.pro p.hl{font-size:14px;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12px;padding:3px 9px;border-radius:999px;background:var(--paper-2);color:var(--ink-2);border:1px solid var(--rule)}
+.pro-foot{display:flex;gap:8px;margin-top:auto;padding-top:4px;flex-wrap:wrap}
+.cta-band{margin-top:32px;display:grid;gap:16px;align-items:center;padding:24px;border-radius:var(--r);background:var(--ink);color:var(--paper)}
+.cta-band h2{font-size:22px;font-weight:800;letter-spacing:-.025em}
+.cta-band p{opacity:.75;margin-top:6px;max-width:52ch}
+@media (min-width:768px){.cta-band{grid-template-columns:1fr auto;padding:32px}}
+
+/* ---------- Form ---------- */
+.form-wrap{max-width:720px;margin:0 auto}
+.form-wrap h1{font-size:clamp(26px,3.6vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-top:8px}
+.form-wrap>p{color:var(--muted);margin-top:8px}
+.steps{display:flex;gap:6px;margin:20px 0}
+.steps i{height:4px;flex:1;border-radius:4px;background:var(--rule);overflow:hidden;position:relative}
+.steps i::after{content:"";position:absolute;inset:0;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.steps i.on::after{transform:scaleX(1)}
+form.card{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);padding:20px;display:grid;gap:16px}
+@media (min-width:768px){form.card{padding:28px;grid-template-columns:1fr 1fr}}
+.field{display:grid;gap:6px}
+.field.full{grid-column:1/-1}
+.field label,.field legend{font-weight:600;font-size:14px}
+.field .hint{font-size:12px;color:var(--muted)}
+.field textarea{min-height:96px;padding:12px 14px;resize:vertical;line-height:1.5}
+.field .count{font-size:12px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.field input:user-invalid,.field select:user-invalid,.field textarea:user-invalid{border-color:var(--red)}
+.err{font-size:12px;color:var(--red);font-weight:600;display:none}
+.field input:user-invalid~.err,.field textarea:user-invalid~.err,.field select:user-invalid~.err{display:block}
+fieldset{border:0;padding:0;margin:0}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;cursor:pointer}
+.check input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--red);flex:none}
+.langs{display:flex;flex-wrap:wrap;gap:8px}
+.langs label{position:relative}
+.langs input{position:absolute;opacity:0;pointer-events:none}
+.langs span{display:inline-flex;min-height:36px;align-items:center;padding:0 14px;border-radius:999px;border:1px solid var(--rule-2);font-size:13px;font-weight:600;cursor:pointer;transition:background-color .15s,color .15s}
+.langs input:checked+span{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.langs input:focus-visible+span{outline:2px solid var(--ink);outline-offset:2px}
+.form-actions{grid-column:1/-1;display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:16px}
+.done{text-align:center;padding:40px 20px}
+.done .tick{width:64px;height:64px;border-radius:50%;background:var(--ok-tint);color:var(--ok);display:grid;place-items:center;margin:0 auto 16px;animation:pop .4s var(--ease) both}
+.done .tick svg{width:30px;height:30px}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+
+/* ---------- Admin ---------- */
+.adm{display:grid;gap:0;min-height:calc(100dvh - 60px);grid-template-columns:minmax(0,1fr)}
+@media (min-width:900px){.adm{grid-template-columns:240px minmax(0,1fr)}}
+.adm-side{border-right:1px solid var(--rule);padding:20px 12px;background:var(--paper-2)}
+.adm-side h2{font-size:12px;font-weight:700;color:var(--muted);padding:0 12px 10px}
+.adm-side nav{display:flex;flex-direction:column;gap:2px}
+.adm-side a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;text-decoration:none;font-weight:600;font-size:14px;color:var(--ink-2);transition:background-color .15s}
+.adm-side a:hover{background:var(--tint)}
+.adm-side a[aria-current="page"]{background:var(--card);color:var(--ink);box-shadow:0 0 0 1px var(--rule)}
+.adm-side a .ic{width:18px;height:18px;color:var(--muted)}
+.adm-side a .cnt{margin-left:auto;font-size:11px;font-weight:700;background:var(--red);color:#fff;border-radius:999px;padding:1px 7px;font-variant-numeric:tabular-nums}
+@media (max-width:899px){
+  .adm-side{border-right:0;border-bottom:1px solid var(--rule);padding:8px 0}
+  .adm-side h2{display:none}
+  .adm-side nav{flex-direction:row;overflow-x:auto;padding:0 12px;scrollbar-width:none}
+  .adm-side nav::-webkit-scrollbar{display:none}
+  .adm-side a{white-space:nowrap;flex:none}}
+.adm-main{padding:24px 16px 48px;min-width:0;width:100%;max-width:1180px}
+@media (min-width:900px){.adm-main{padding:32px 40px 64px}}
+.adm-main>header{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.adm-main h1{font-size:26px;font-weight:800;letter-spacing:-.03em}
+.adm-main header p{color:var(--muted);font-size:14px;margin-top:4px}
+.kpis{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-bottom:24px}
+@media (min-width:1100px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.kpi{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);padding:16px;text-decoration:none;display:block;transition:border-color .15s}
+a.kpi:hover{border-color:var(--ink)}
+.kpi span{font-size:13px;color:var(--muted);font-weight:600}
+.kpi b{display:block;font-size:30px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-top:4px;line-height:1.1}
+.kpi small{font-size:12px;color:var(--muted)}
+.kpi.alert b{color:var(--red)}
+.tbl-wrap{background:var(--card);border:1px solid var(--rule);border-radius:var(--r);overflow:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:14px;min-width:640px}
+.tbl th{text-align:left;font-size:12px;font-weight:600;color:var(--muted);padding:12px 14px;border-bottom:1px solid var(--rule);background:var(--paper-2);position:sticky;top:0;white-space:nowrap}
+.tbl td{padding:12px 14px;border-bottom:1px solid var(--rule);vertical-align:top;font-variant-numeric:tabular-nums}
+.tbl tr:last-child td{border-bottom:0}
+.tbl td.act{white-space:nowrap;text-align:right}
+.tbl .who b{display:block;font-weight:700;overflow-wrap:anywhere}
+.tbl .who span{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.tbl .clip{max-width:320px;color:var(--ink-2)}
+@media (max-width:699px){
+  .tbl{min-width:0}.tbl thead{display:none}.tbl,.tbl tbody,.tbl tr,.tbl td{display:block}
+  .tbl tr{padding:14px 16px;border-bottom:1px solid var(--rule)}.tbl tr:last-child{border-bottom:0}
+  .tbl td{border:0;padding:2px 0}.tbl td.act{text-align:left;padding-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+  .tbl td[style*="right"]{text-align:left!important}.tbl .clip{max-width:none}}
+.tbl tr.leaving{animation:rowOut .22s var(--ease) forwards}
+@keyframes rowOut{to{opacity:0;transform:translateX(12px)}}
+.adm-tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.adm-tools .search{flex:1 1 240px}
+.adm-tools .select{width:auto;min-width:160px}
+.two{display:grid;gap:16px}
+@media (min-width:1100px){.two{grid-template-columns:1fr 1fr}}
+.activity li{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--rule);font-size:14px}
+.activity li:last-child{border-bottom:0}
+.activity time{color:var(--muted);font-size:12px;margin-left:auto;white-space:nowrap;font-variant-numeric:tabular-nums}
+.bar-row{display:grid;grid-template-columns:96px 1fr 36px;gap:10px;align-items:center;font-size:13px;padding:5px 0}
+.bar-row i{display:block;height:8px;border-radius:4px;background:var(--tint);overflow:hidden}
+.bar-row i b{display:block;height:100%;background:var(--red);border-radius:4px;transform-origin:left;animation:grow .6s var(--ease) both}
+@keyframes grow{from{transform:scaleX(0)}}
+.bar-row span{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+.switch{position:relative;width:40px;height:24px;flex:none}
+.switch input{position:absolute;inset:0;opacity:0;cursor:pointer;margin:0;z-index:1}
+.switch i{position:absolute;inset:0;border-radius:999px;background:var(--rule-2);transition:background-color .2s}
+.switch i::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2);transition:transform .2s var(--ease)}
+.switch input:checked+i{background:var(--ok)}
+.switch input:checked+i::after{transform:translateX(16px)}
+.switch input:focus-visible+i{outline:2px solid var(--ink);outline-offset:2px}
+
+/* ---------- Bottom nav (mobile) ---------- */
+.bnav{position:fixed;inset:auto 0 0 0;z-index:30;display:grid;grid-template-columns:repeat(5,1fr);background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-top:1px solid var(--rule);padding-bottom:var(--safe-b)}
+.bnav a{min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;font-size:11px;font-weight:600;color:var(--muted);
+  -webkit-touch-callout:none;user-select:none;-webkit-user-select:none;transition:color .15s}
+.bnav a .ic{width:22px;height:22px;transition:transform .2s var(--ease)}
+.bnav a:active .ic{transform:scale(.9)}
+.bnav a.on{color:var(--ink)}
+.bnav a.on .ic{color:var(--red)}
+@media (min-width:900px){.bnav{display:none}}
+
+/* ---------- Toast & demo banner ---------- */
+.toast{position:fixed;left:50%;bottom:calc(76px + var(--safe-b));z-index:50;transform:translate(-50%,12px);opacity:0;pointer-events:none;
+  background:var(--ink);color:var(--paper);padding:12px 18px;border-radius:12px;font-weight:600;font-size:14px;box-shadow:0 10px 30px -10px rgba(0,0,0,.4);
+  transition:opacity .2s var(--ease),transform .2s var(--ease);max-width:calc(100vw - 32px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (min-width:900px){.toast{bottom:24px}}
+.demo-note{font-size:12px;color:var(--muted);padding:10px 0;border-top:1px solid var(--rule);margin-top:40px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">İçeriğe geç</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#/kesfet" aria-label="TurkaNomad ana sayfa"><span class="mk" aria-hidden="true">t</span>TurkaNomad</a>
+    <nav class="dt-nav" aria-label="Ana menü">
+      <a href="#/kesfet" data-nav="kesfet">Keşfet</a>
+      <a href="#/topluluk" data-nav="topluluk">Topluluk</a>
+      <a href="#/profesyoneller" data-nav="profesyoneller">Profesyoneller<span class="new">YENİ</span></a>
+      <a href="#/seyahatler" data-nav="seyahatler">Seyahatler</a>
+      <a href="#/profil" data-nav="profil">Profil</a>
+    </nav>
+    <div class="top-r">
+      <a class="btn sm ghost admin-pill" href="#/yonetim" data-nav="yonetim">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6l-8-3Z"/></svg>Yönetim</a>
+      <a class="btn sm" href="#/profil">Giriş yap</a>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1"></main>
+
+<nav class="bnav" aria-label="Alt menü">
+  <a href="#/kesfet" data-nav="kesfet"><svg class="ic" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Z"/><path d="M9 4v14M15 6v14"/></svg>Keşfet</a>
+  <a href="#/topluluk" data-nav="topluluk"><svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.4 3.3-5.5 6.5-5.5s5.9 2.1 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c1.9.7 3.2 2.6 3.5 5.2"/></svg>Topluluk</a>
+  <a href="#/profesyoneller" data-nav="profesyoneller"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8.5 7V5.5A1.5 1.5 0 0 1 10 4h4a1.5 1.5 0 0 1 1.5 1.5V7M3 12.5h18"/></svg>Uzmanlar</a>
+  <a href="#/seyahatler" data-nav="seyahatler"><svg class="ic" viewBox="0 0 24 24"><path d="M21 3 3 10.5l7 2.5 2.5 7L21 3Z"/><path d="m10 13 4.5-4.5"/></svg>Seyahatler</a>
+  <a href="#/profil" data-nav="profil"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4 4-6.5 8-6.5s7.2 2.5 8 6.5"/></svg>Profil</a>
+</nav>
+
+<div class="toast" role="status" aria-live="polite" id="toast"></div>
+
+<script>
+/* ===================== Data ===================== */
+const C = (slug,name,cc,lat,lon,open=false)=>({slug,name,cc,lat,lon,open});
+const CITIES=[C("london","Londra","GB",51.5074,-.1278,true),C("barcelona","Barselona","ES",41.3874,2.1686,true),C("berlin","Berlin","DE",52.52,13.405,true),C("amsterdam","Amsterdam","NL",52.3676,4.9041,true),
+C("munich","Münih","DE",48.1351,11.582),C("frankfurt","Frankfurt","DE",50.1109,8.6821),C("hamburg","Hamburg","DE",53.5511,9.9937),C("cologne","Köln","DE",50.9375,6.9603),C("paris","Paris","FR",48.8566,2.3522),C("vienna","Viyana","AT",48.2082,16.3738),C("zurich","Zürih","CH",47.3769,8.5417),C("brussels","Brüksel","BE",50.8503,4.3517),C("copenhagen","Kopenhag","DK",55.6761,12.5683),C("stockholm","Stokholm","SE",59.3293,18.0686),C("madrid","Madrid","ES",40.4168,-3.7038),C("lisbon","Lizbon","PT",38.7223,-9.1393),C("rome","Roma","IT",41.9028,12.4964),C("milan","Milano","IT",45.4642,9.19),C("dublin","Dublin","IE",53.3498,-6.2603),C("prague","Prag","CZ",50.0755,14.4378),C("warsaw","Varşova","PL",52.2297,21.0122),C("budapest","Budapeşte","HU",47.4979,19.0402),C("athens","Atina","GR",37.9838,23.7275),C("new-york","New York","US",40.7128,-74.006),C("toronto","Toronto","CA",43.6532,-79.3832),C("dubai","Dubai","AE",25.2048,55.2708),C("baku","Bakü","AZ",40.4093,49.8671)];
+const REG=new Intl.DisplayNames(["tr"],{type:"region"});
+CITIES.forEach(c=>c.country=REG.of(c.cc));
+const BY=Object.fromEntries(CITIES.map(c=>[c.slug,c]));
+const trCmp=(a,b)=>a.localeCompare(b,"tr");
+
+const CATS=["Hukuk","Göç ve vize","Muhasebe ve vergi","Sağlık","Psikolojik danışmanlık","Emlak ve kiralama","Çeviri","Eğitim ve dil","Finans ve sigorta","İş kurma"];
+const LANGS=["Türkçe","İngilizce","Almanca","İspanyolca","Fransızca","Hollandaca","İtalyanca","Arapça"];
+
+/* Demo data. Every person below is fictional; contact links use .example. */
+const SEED_PROS=[
+ ["p1","Elif Aydın","Hukuk","london","İngiltere'de oturum, Skilled Worker ve aile vizesi başvurularında Türkçe danışmanlık.",["Türkçe","İngilizce"],true],
+ ["p2","Murat Kaya","Muhasebe ve vergi","london","Self-employed ve Ltd şirketler için vergi beyannamesi, HMRC yazışmaları.",["Türkçe","İngilizce"],true],
+ ["p3","Dr. Zeynep Arslan","Sağlık","london","NHS kaydı ve özel muayene; aile hekimi olarak Türkçe görüşme imkânı.",["Türkçe","İngilizce"],true],
+ ["p4","Can Öztürk","Emlak ve kiralama","london","İlk kiralık evini arayanlar için referans, depozito ve sözleşme kontrolü.",["Türkçe","İngilizce"],false],
+ ["p5","Selin Yıldız","Psikolojik danışmanlık","berlin","Yurt dışına uyum, yalnızlık ve kariyer geçişleri üzerine online ve yüz yüze seans.",["Türkçe","Almanca","İngilizce"],true],
+ ["p6","Burak Demir","Göç ve vize","berlin","Blue Card, Anmeldung ve Ausländerbehörde randevularında adım adım destek.",["Türkçe","Almanca"],true],
+ ["p7","Ayşe Çelik","Muhasebe ve vergi","berlin","Freelancer (Freiberufler) kaydı, Steuererklärung ve Finanzamt yazışmaları.",["Türkçe","Almanca"],true],
+ ["p8","Deniz Koç","Eğitim ve dil","berlin","A1'den C1'e Almanca dersleri, Goethe ve telc sınavlarına hazırlık.",["Türkçe","Almanca","İngilizce"],false],
+ ["p9","Ece Şahin","Hukuk","barcelona","NIE, TIE ve dijital göçebe vizesi; İspanya'da şirket kuruluşu.",["Türkçe","İspanyolca","İngilizce"],true],
+ ["p10","Kerem Aksoy","Emlak ve kiralama","barcelona","Eixample ve Gràcia'da kiralık daire arayanlar için yerinde görüşme.",["Türkçe","İspanyolca"],false],
+ ["p11","Gizem Erdoğan","Çeviri","barcelona","Yeminli tercüme: diploma, nüfus kaydı ve evlilik belgeleri.",["Türkçe","İspanyolca","İngilizce"],true],
+ ["p12","Onur Polat","İş kurma","amsterdam","KvK kaydı, zzp vergi düzeni ve Hollanda'da ilk müşteriyi bulma.",["Türkçe","Hollandaca","İngilizce"],true],
+ ["p13","Merve Güneş","Göç ve vize","amsterdam","Highly skilled migrant (kennismigrant) ve 30% ruling başvuruları.",["Türkçe","İngilizce"],true],
+ ["p14","Emre Yalçın","Finans ve sigorta","munich","Krankenversicherung seçimi, emeklilik ve Almanya'da banka hesabı.",["Türkçe","Almanca"],true],
+ ["p15","İpek Tunç","Psikolojik danışmanlık","paris","Göç sonrası kaygı ve ilişki danışmanlığı; online seans.",["Türkçe","Fransızca"],true],
+ ["p16","Barış Kurt","Hukuk","dubai","Golden Visa, serbest bölgede şirket ve kira uyuşmazlıkları.",["Türkçe","İngilizce","Arapça"],true],
+].map(([id,name,category,city,headline,langs,verified],i)=>({id,name,category,city,headline,langs,verified,status:"listed",
+  website:`https://${slugify(name)}.example`,email:`${slugify(name)}@mail.example`,since:dayOffset(-(20+i*9))}));
+
+const SEED_APPS=[
+ {id:"a1",name:"Hakan Bulut",category:"Hukuk",city:"berlin",headline:"Aile birleşimi ve vatandaşlık başvurularında Türkçe avukatlık.",langs:["Türkçe","Almanca"],email:"hakan.bulut@mail.example",website:"https://bulut-law.example",submitted:dayOffset(-1),doc:"Baro kaydı yüklendi"},
+ {id:"a2",name:"Nazlı Ekinci",category:"Sağlık",city:"amsterdam",headline:"Huisarts kaydı ve çocuk sağlığı konusunda Türkçe danışmanlık.",langs:["Türkçe","Hollandaca","İngilizce"],email:"nazli.e@mail.example",website:"",submitted:dayOffset(-2),doc:"BIG kaydı yüklendi"},
+ {id:"a3",name:"Oğuzhan Tekin-Vanderberghe",category:"Emlak ve kiralama",city:"brussels",headline:"Brüksel'de kiralık ev, depozito garantisi ve taşınma listesi. Avrupa kurumlarında çalışanlar için hızlı süreç.",langs:["Türkçe","Fransızca","İngilizce"],email:"oguzhan.tekin.vanderberghe@mail.example",website:"https://tekin-immo.example",submitted:dayOffset(-3),doc:"Belge yok"},
+ {id:"a4",name:"Sena Uçar",category:"Çeviri",city:"london",headline:"Yeminli Türkçe–İngilizce tercüme, apostil yönlendirmesi.",langs:["Türkçe","İngilizce"],email:"sena.ucar@mail.example",website:"",submitted:dayOffset(-5),doc:"Sertifika yüklendi"},
+];
+const SEED_MEMBERS=[["Ahmet Yılmaz","london","here",true],["Defne Acar","barcelona","here",true],["Tolga Er","berlin","soon",true],["Cansu Ateş","amsterdam","here",false],["Kaan Özkan","london","soon",true],["Melis Doğan","berlin","here",true],["Serkan Bal","munich","here",true],["Irmak Sezer","paris","soon",false],["Berk Tan","dubai","here",true],["Lale Uysal","london","here",true],["Umut Kılıç","barcelona","soon",true],["Ceren Yavuz","amsterdam","here",true]]
+ .map(([name,city,state,verified],i)=>({id:"m"+i,name,city,state,verified,status:"active",joined:dayOffset(-(3+i*6))}));
+const SEED_REPORTS=[
+ {id:"r1",target:"Kaan Özkan",reason:"Profilde ticari reklam ve link paylaşımı",by:"Lale Uysal",city:"london",at:dayOffset(0)},
+ {id:"r2",target:"Can Öztürk (profesyonel)",reason:"İlanda yazan ücret ile istenen ücret farklı",by:"Defne Acar",city:"london",at:dayOffset(-1)},
+ {id:"r3",target:"Irmak Sezer",reason:"Tekrarlayan mesaj isteği",by:"Melis Doğan",city:"paris",at:dayOffset(-4)},
+];
+const SEED_ADS=[
+ {id:"ad1",headline:"Londra'da Türkçe muhasebe",who:"Murat Kaya",city:"london",placement:"directory",phase:"pending",imp:0,clk:0},
+ {id:"ad2",headline:"Berlin'e taşınma rehberi",who:"Burak Demir",city:"berlin",placement:"city_guide",phase:"live",imp:4120,clk:138},
+ {id:"ad3",headline:"Barselona'da NIE randevusu",who:"Ece Şahin",city:"barcelona",placement:"directory",phase:"ended",imp:9860,clk:301},
+];
+
+function slugify(s){return s.toLocaleLowerCase("tr").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/ı/g,"i").replace(/dr\. /,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
+function dayOffset(d){const t=new Date();t.setDate(t.getDate()+d);return t.toISOString().slice(0,10)}
+function fmtDate(s){return new Date(s+"T12:00:00").toLocaleDateString("tr-TR",{day:"numeric",month:"short"})}
+function ago(s){const d=Math.round((Date.now()-new Date(s+"T12:00:00"))/864e5);return d<=0?"bugün":d===1?"dün":d+" gün önce"}
+/* Deterministic demo counts per city (the live site reads these from tn_atlas_directory_counts). */
+function counts(slug){let h=0;for(const ch of slug)h=(h*31+ch.charCodeAt(0))>>>0;const c=BY[slug];const base=c.open?140:18;return{here:base+(h%(c.open?260:70)),soon:Math.round((base+(h>>5)%60)/4)}}
+
+/* ===================== Store ===================== */
+const KEY="tn-demo-v2";
+function fresh(){return{pros:SEED_PROS,apps:SEED_APPS,members:SEED_MEMBERS,reports:SEED_REPORTS,ads:SEED_ADS,
+  open:Object.fromEntries(CITIES.map(c=>[c.slug,c.open])),log:[{t:"Sistem",m:"Demo verisi yüklendi",at:dayOffset(0)}],myApp:null}}
+let S;
+try{S=JSON.parse(localStorage.getItem(KEY))||fresh()}catch{S=fresh()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch{}}
+function log(m){S.log.unshift({t:"Yönetici",m,at:dayOffset(0)});S.log=S.log.slice(0,30);save()}
+const viewPrefs={view:"grid"};
+try{viewPrefs.view=localStorage.getItem("tn-view")||"grid"}catch{}
+
+/* ===================== Helpers ===================== */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+const norm=s=>String(s||"").toLocaleLowerCase("tr").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/ı/g,"i");
+const img=(slug,cls="",eager=false)=>`<img src="img/${slug}.webp" alt="" width="720" height="480" ${eager?'fetchpriority="high"':'loading="lazy"'} decoding="async" class="${cls}">`;
+const initials=n=>n.replace(/^Dr\. /,"").split(/\s+/).map(w=>w[0]).slice(0,2).join("").toLocaleUpperCase("tr");
+const I={
+ check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+ search:'<svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
+ back:'<svg class="ic" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>',
+ ext:'<svg class="ic" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
+ mail:'<svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>',
+ plus:'<svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
+ grid:'<svg class="ic" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>',
+ inbox:'<svg class="ic" viewBox="0 0 24 24"><path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18v-5l2.5-8Z"/></svg>',
+ brief:'<svg class="ic" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8.5 7V5.5A1.5 1.5 0 0 1 10 4h4a1.5 1.5 0 0 1 1.5 1.5V7"/></svg>',
+ users:'<svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.4 3.3-5.5 6.5-5.5s5.9 2.1 6.5 5.5M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c1.9.7 3.2 2.6 3.5 5.2"/></svg>',
+ flag:'<svg class="ic" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg>',
+ mega:'<svg class="ic" viewBox="0 0 24 24"><path d="M4 10v4a1 1 0 0 0 1 1h3l6 4V5L8 9H5a1 1 0 0 0-1 1ZM18 9a4 4 0 0 1 0 6"/></svg>',
+ pin:'<svg class="ic" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+};
+let toastT;
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2600)}
+
+/* ===================== Router ===================== */
+const main=$("#main");
+function route(){
+  const [r="kesfet",a,b]=location.hash.replace(/^#\/?/,"").split("?")[0].split("/");
+  const navKey=r==="sehir"?(a&&b==="profesyoneller"?"profesyoneller":"kesfet"):r;
+  $$("[data-nav]").forEach(el=>el.classList.toggle("on",el.dataset.nav===navKey));
+  $$("[data-nav]").forEach(el=>el.dataset.nav===navKey?el.setAttribute("aria-current","page"):el.removeAttribute("aria-current"));
+  const views={kesfet:vKesfet,sehir:()=>vCity(a,b),profesyoneller:()=>a==="kayit"?vSignup():vPros(a),topluluk:vTopluluk,seyahatler:vSeyahat,profil:vProfil,yonetim:()=>vAdmin(a||"genel")};
+  const fn=views[r]; if(!fn){location.replace("#/kesfet");return}
+  main.innerHTML=`<div class="view">${fn()}</div>`;
+  (afterRender[r]||(()=>{}))(a,b);
+  const nextTitle={kesfet:"Keşfet",sehir:BY[a]?.name,profesyoneller:"Profesyoneller",topluluk:"Topluluk",seyahatler:"Seyahatler",profil:"Profil",yonetim:"Yönetim"}[r];
+  document.title=(nextTitle?nextTitle+" · ":"")+"TurkaNomad";
+}
+addEventListener("hashchange",()=>{route();scrollTo({top:0})});
+const afterRender={};
+
+/* ===================== Keşfet ===================== */
+function vKesfet(){
+  const open=CITIES.filter(c=>S.open[c.slug]), rest=CITIES.filter(c=>!S.open[c.slug]).sort((x,y)=>trCmp(x.name,y.name));
+  const total=CITIES.reduce((s,c)=>s+counts(c.slug).here,0), pros=S.pros.filter(p=>p.status==="listed").length;
+  return `<section class="wrap">
+    <div class="intro intro-row">
+      <div><h1>Dünyadaki Türk topluluğunun <em>haritası</em></h1>
+      <p>Şehrini seç, orada yaşayan ve yakında gelecek Türklerle tanış, Türkçe konuşan profesyonellere ulaş. Üyelik ücretsiz.</p></div>
+      <div class="stats" aria-label="Topluluk özeti">
+        <div class="stat"><b class="num">${CITIES.length}</b><span>şehir</span></div>
+        <div class="stat"><b class="num">${total.toLocaleString("tr-TR")}</b><span>üye</span></div>
+        <div class="stat"><b class="num">${pros}</b><span>profesyonel</span></div>
+      </div>
+    </div>
+    <div class="toolbar">
+      <label class="search"><span class="vh">Şehir veya ülke ara</span>${I.search}<input id="q" type="search" placeholder="Şehir veya ülke ara" autocomplete="off" enterkeyhint="search"></label>
+      <div class="seg" role="group" aria-label="Görünüm">
+        <button type="button" data-v="grid" aria-pressed="${viewPrefs.view==="grid"}">Şehirler</button>
+        <button type="button" data-v="map" aria-pressed="${viewPrefs.view==="map"}">Harita</button>
+        <button type="button" data-v="list" aria-pressed="${viewPrefs.view==="list"}">Liste</button>
+      </div>
+    </div>
+    <div id="cityOut">${cityOut(open,rest,"")}</div>
+  </section>`;
+}
+function cityOut(open,rest,q){
+  const m=c=>!q||norm(c.name+" "+c.country+" "+c.slug).includes(q);
+  const o=open.filter(m), r=rest.filter(m);
+  if(!o.length&&!r.length)return `<div class="empty"><strong>“${esc(q)}” için şehir bulunamadı.</strong>Şehrin listede yoksa Profil sayfasından önerebilirsin.</div>`;
+  const v=viewPrefs.view;
+  if(v==="list"){
+    const all=[...o,...r];
+    return `<div class="tbl-wrap" style="margin-top:8px"><table class="list-table"><thead><tr><th>Şehir</th><th>Ülke</th><th style="text-align:right">Burada</th><th style="text-align:right">Yakında</th></tr></thead><tbody>
+    ${all.map(c=>{const n=counts(c.slug);return `<tr data-href="#/sehir/${c.slug}"><td><a href="#/sehir/${c.slug}" style="font-weight:700;text-decoration:none">${esc(c.name)}</a>${S.open[c.slug]?' <span class="badge" style="margin-left:6px">Açık</span>':""}</td><td>${esc(c.country)}</td><td style="text-align:right">${n.here}</td><td style="text-align:right">${n.soon}</td></tr>`}).join("")}
+    </tbody></table></div>`;
+  }
+  if(v==="map")return mapSVG([...o,...r]);
+  return `${o.length?`<div class="sec-h"><h2>Topluluğu açık şehirler</h2><p>Üyeler birbirini görebiliyor</p></div>
+    <div class="grid-open">${o.map((c,i)=>{const n=counts(c.slug);return `<a class="city" href="#/sehir/${c.slug}"><div class="ph">${img(c.slug,"",i<4)}</div>
+      <div class="cap"><h3>${esc(c.name)}</h3><div class="cc">${esc(c.country)}</div>
+      <div class="cnt"><span><span class="dot"></span><b>${n.here}</b> burada</span><span><b>${n.soon}</b> yakında</span></div></div></a>`}).join("")}</div>`:""}
+    ${r.length?`<div class="sec-h"><h2>Açılmayı bekleyen şehirler</h2><p>${r.length} şehir · bekleme listesine katıl</p></div>
+    <div class="grid-more">${r.map(c=>{const n=counts(c.slug);return `<a class="mini" href="#/sehir/${c.slug}">${img(c.slug)}<div><b>${esc(c.name)}</b><span>${esc(c.country)} · <span class="num">${n.here}</span> bekliyor</span></div></a>`}).join("")}</div>`:""}`;
+}
+function mapSVG(list){
+  const W=1000,H=520,x=lon=>(lon+80)/140*W,y=lat=>(62-lat)/42*H; // Europe-centred window, NY/Toronto/Dubai/Baku clamped in
+  const cx=c=>Math.max(24,Math.min(W-24,x(c.lon))), cy=c=>Math.max(24,Math.min(H-24,y(c.lat)));
+  return `<div class="mapbox" style="margin-top:8px"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Şehir haritası">
+    <rect width="${W}" height="${H}" fill="var(--paper-2)"/>
+    ${Array.from({length:9},(_,i)=>`<line x1="0" x2="${W}" y1="${i*65}" y2="${i*65}" stroke="var(--rule)" stroke-width="1"/>`).join("")}
+    ${Array.from({length:15},(_,i)=>`<line y1="0" y2="${H}" x1="${i*72}" x2="${i*72}" stroke="var(--rule)" stroke-width="1"/>`).join("")}
+    ${list.map(c=>{const n=counts(c.slug),r=Math.max(5,Math.min(18,Math.sqrt(n.here)*1.1)),o=S.open[c.slug];
+      return `<a class="pin" href="#/sehir/${c.slug}"><circle cx="${cx(c)}" cy="${cy(c)}" r="${r}" fill="${o?"var(--red)":"var(--muted)"}" fill-opacity="${o?.85:.45}"/>
+      <text x="${cx(c)}" y="${cy(c)-r-6}" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)">${esc(c.name)}</text></a>`}).join("")}
+  </svg></div>`;
+}
+afterRender.kesfet=()=>{
+  const open=CITIES.filter(c=>S.open[c.slug]), rest=CITIES.filter(c=>!S.open[c.slug]).sort((x,y)=>trCmp(x.name,y.name));
+  const q=$("#q"),out=$("#cityOut");
+  q.addEventListener("input",()=>{out.innerHTML=cityOut(open,rest,norm(q.value.trim()))});
+  $$(".seg button").forEach(b=>b.addEventListener("click",()=>{viewPrefs.view=b.dataset.v;try{localStorage.setItem("tn-view",b.dataset.v)}catch{}
+    $$(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b));out.innerHTML=cityOut(open,rest,norm(q.value.trim()))}));
+  out.addEventListener("click",e=>{const tr=e.target.closest("tr[data-href]");if(tr&&!e.target.closest("a"))location.hash=tr.dataset.href});
+};
+
+/* ===================== City ===================== */
+function vCity(slug,sub){
+  const c=BY[slug]; if(!c)return `<div class="wrap"><div class="empty" style="margin-top:40px"><strong>Şehir bulunamadı.</strong><a class="btn" href="#/kesfet">Şehirlere dön</a></div></div>`;
+  const n=counts(slug), pros=S.pros.filter(p=>p.city===slug&&p.status==="listed"), tab=sub||"rehber";
+  const t=(k,l)=>`<a href="#/sehir/${slug}${k==="rehber"?"":"/"+k}" ${tab===k?'aria-current="page"':""}>${l}</a>`;
+  return `<div class="wrap">
+    <a class="back" href="#/kesfet">${I.back}Şehirler</a>
+    <div class="c-hero">${img(slug,"",true)}<div class="cap"><h1>${esc(c.name)}</h1><p>${esc(c.country)}${S.open[slug]?" · topluluk açık":" · açılmayı bekliyor"}</p></div></div>
+    <nav class="tabs" aria-label="${esc(c.name)} bölümleri">${t("rehber","Rehber")}${t("profesyoneller",`Profesyoneller (${pros.length})`)}${t("etkinlikler","Etkinlikler")}</nav>
+    ${tab==="profesyoneller"?`<div style="margin-top:20px">${prosGrid(pros,c)}</div>`:tab==="etkinlikler"?`<div class="empty" style="margin-top:24px"><strong>${esc(c.name)} için yaklaşan etkinlik yok.</strong>Atölye, konuşma ve kültür programları onaylandıkça burada görünür.</div>`:
+    `<div class="cols">
+      <div class="panel"><h2>Topluluk</h2>
+        <div class="kv"><div><b>${n.here}</b><span>son 45 günde “Buradayım” diyen</span></div><div><b>${n.soon}</b><span>önümüzdeki 30 günde gelecek</span></div></div>
+        <p class="note">Bu iki grup ayrıdır ve toplanmaz. Misafirler yalnızca anonim toplamları görür; 5 kişiden küçük gruplar gösterilmez.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px"><a class="btn primary" href="#/profil">Buradayım</a><a class="btn" href="#/seyahatler">Gelme planı ekle</a></div>
+      </div>
+      <aside class="panel"><h2>Türkçe konuşan profesyoneller</h2>
+        ${pros.length?`<ul>${pros.slice(0,3).map(p=>`<li style="display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--rule)"><span class="av" style="width:36px;height:36px;font-size:13px">${initials(p.name)}</span><div style="min-width:0"><b style="display:block;font-size:14px">${esc(p.name)}</b><span style="font-size:12px;color:var(--muted)">${esc(p.category)}</span></div></li>`).join("")}</ul>
+        <a class="btn" style="margin-top:14px;width:100%" href="#/sehir/${slug}/profesyoneller">Tümünü gör (${pros.length})</a>`:
+        `<p style="color:var(--muted);font-size:14px">${esc(c.name)} için henüz listelenmiş profesyonel yok.</p><a class="btn" style="margin-top:14px;width:100%" href="#/profesyoneller/kayit?city=${slug}">${I.plus}Profesyonel olarak kaydol</a>`}
+      </aside>
+    </div>`}
+    <p class="demo-note">Demo: sayılar ve kişiler örnek veridir.</p>
+  </div>`;
+}
+
+/* ===================== Professionals ===================== */
+let proFilter={city:"",cat:"",q:""};
+function vPros(slug){
+  proFilter.city=slug&&BY[slug]?slug:"";
+  const cityOpts=CITIES.slice().sort((a,b)=>trCmp(a.name,b.name)).map(c=>{const k=S.pros.filter(p=>p.city===c.slug&&p.status==="listed").length;return `<option value="${c.slug}" ${proFilter.city===c.slug?"selected":""}>${esc(c.name)}${k?` (${k})`:""}</option>`}).join("");
+  return `<section class="wrap">
+    <div class="p-head"><div><h1>Türkçe konuşan profesyoneller</h1>
+      <p>Avukat, muhasebeci, doktor, danışman: yaşadığın şehirde seni anlayan birini bul. Her kayıt yayına girmeden önce ekibimiz tarafından kontrol edilir.</p></div>
+      <a class="btn primary" href="#/profesyoneller/kayit">${I.plus}Profesyonel olarak kaydol</a></div>
+    <div class="filters">
+      <label><span class="vh">Şehir</span><select class="select" id="fCity"><option value="">Tüm şehirler</option>${cityOpts}</select></label>
+      <label class="search"><span class="vh">İsim veya konu ara</span>${I.search}<input id="fQ" type="search" placeholder="İsim veya konu ara (ör. vize, vergi)" value="${esc(proFilter.q)}" enterkeyhint="search"></label>
+    </div>
+    <div class="chips" id="fCats" role="group" aria-label="Uzmanlık alanı"></div>
+    <div id="proOut"></div>
+    <div class="cta-band"><div><h2>Kendi şehrinde Türkçe hizmet mi veriyorsun?</h2><p>Kayıt ücretsiz. Mesleğini ve iletişim bilgini ekle; onaylandığında şehrinin profesyoneller listesinde görünürsün.</p></div>
+      <a class="btn primary" href="#/profesyoneller/kayit">Başvuruyu başlat</a></div>
+    <p class="demo-note">Demo: listelenen kişiler örnek veridir, iletişim adresleri .example alan adındadır.</p>
+  </section>`;
+}
+function prosGrid(list,city){
+  if(!list.length)return `<div class="empty"><strong>${city?esc(city.name)+" için":"Bu filtrede"} henüz listelenmiş profesyonel yok.</strong>Liste yine de burada; yeni profesyoneller onaylandıkça görünür.<br><a class="btn" href="#/profesyoneller/kayit${city?"?city="+city.slug:""}">${I.plus}Profesyonel olarak kaydol</a></div>`;
+  return `<ul class="pros">${list.map((p,i)=>`<li class="pro" style="animation-delay:${Math.min(i,8)*30}ms">
+    <div class="pro-top"><span class="av" aria-hidden="true">${initials(p.name)}</span>
+      <div style="min-width:0;flex:1"><h3>${esc(p.name)}</h3><div class="cat">${esc(p.category)} · ${esc(BY[p.city]?.name||p.city)}</div></div>
+      ${p.verified?`<span class="badge" title="Belgesi kontrol edildi">${I.check}Doğrulandı</span>`:""}</div>
+    <p class="hl">${esc(p.headline)}</p>
+    <div class="tags">${p.langs.map(l=>`<span class="tag">${esc(l)}</span>`).join("")}</div>
+    <div class="pro-foot"><a class="btn sm dark" href="mailto:${esc(p.email)}">${I.mail}İletişime geç</a>${p.website?`<a class="btn sm" href="${esc(p.website)}" target="_blank" rel="noopener nofollow">${I.ext}Web sitesi</a>`:""}</div>
+  </li>`).join("")}</ul>`;
+}
+afterRender.profesyoneller=(a)=>{
+  if(a==="kayit"){signupAfter();return}
+  const draw=()=>{
+    const base=S.pros.filter(p=>p.status==="listed"&&(!proFilter.city||p.city===proFilter.city));
+    const q=norm(proFilter.q);
+    const bq=base.filter(p=>!q||norm(p.name+" "+p.category+" "+p.headline+" "+(BY[p.city]?.name||"")).includes(q));
+    const cc=Object.fromEntries(CATS.map(c=>[c,bq.filter(p=>p.category===c).length]));
+    $("#fCats").innerHTML=`<button class="chip" type="button" data-c="" aria-pressed="${!proFilter.cat}">Tümü<span class="n">${bq.length}</span></button>`+
+      CATS.filter(c=>cc[c]||proFilter.cat===c).map(c=>`<button class="chip" type="button" data-c="${esc(c)}" aria-pressed="${proFilter.cat===c}">${esc(c)}<span class="n">${cc[c]}</span></button>`).join("");
+    const list=bq.filter(p=>!proFilter.cat||p.category===proFilter.cat).sort((x,y)=>(y.verified-x.verified)||trCmp(x.name,y.name));
+    const cityName=proFilter.city?BY[proFilter.city].name:"tüm şehirlerde";
+    $("#proOut").innerHTML=`<p class="result-meta" aria-live="polite"><span class="num">${list.length}</span> profesyonel · ${esc(cityName)}</p>`+prosGrid(list,proFilter.city?BY[proFilter.city]:null);
+  };
+  $("#fCity").addEventListener("change",e=>{proFilter.city=e.target.value;proFilter.cat="";history.replaceState(null,"","#/profesyoneller"+(proFilter.city?"/"+proFilter.city:""));draw()});
+  $("#fQ").addEventListener("input",e=>{proFilter.q=e.target.value;draw()});
+  $("#fCats").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;proFilter.cat=b.dataset.c;draw()});
+  draw();
+};
+afterRender.sehir=()=>{};
+
+/* ===================== Sign-up ===================== */
+function vSignup(){
+  if(S.myApp){const a=S.myApp;const st=a.status==="pending"?["İncelemede","warn","Başvurun ekibimize ulaştı. Genellikle 2 iş günü içinde e-postayla dönüş yapıyoruz."]:a.status==="approved"?["Yayında","","Başvurun onaylandı; artık "+(BY[a.city]?.name)+" listesinde görünüyorsun."]:["Reddedildi","red","Neden: "+(a.reason||"belirtilmedi")+". Bilgilerini düzeltip yeniden başvurabilirsin."];
+    return `<section class="wrap"><div class="form-wrap"><a class="back" href="#/profesyoneller">${I.back}Profesyoneller</a>
+    <div class="panel done"><div class="tick">${I.check}</div><h1 style="font-size:24px">Başvurun alındı</h1>
+      <p style="color:var(--muted);margin-top:8px">${esc(st[2])}</p>
+      <p style="margin-top:16px"><span class="badge ${st[1]}">${st[0]}</span></p>
+      <dl style="text-align:left;margin:24px auto 0;max-width:360px;display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:14px">
+        <dt style="color:var(--muted)">Ad</dt><dd>${esc(a.name)}</dd><dt style="color:var(--muted)">Alan</dt><dd>${esc(a.category)}</dd><dt style="color:var(--muted)">Şehir</dt><dd>${esc(BY[a.city]?.name)}</dd></dl>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:24px;flex-wrap:wrap"><a class="btn" href="#/profesyoneller">Listeye dön</a>
+      ${a.status!=="pending"?`<button class="btn" type="button" id="reApply">Yeni başvuru</button>`:`<a class="btn dark" href="#/yonetim/basvurular">Yönetimde gör (demo)</a>`}</div>
+    </div></div></section>`}
+  const pre=new URLSearchParams(location.hash.split("?")[1]||"").get("city")||"";
+  return `<section class="wrap"><div class="form-wrap">
+    <a class="back" href="#/profesyoneller">${I.back}Profesyoneller</a>
+    <h1>Profesyonel olarak kaydol</h1>
+    <p>Kayıt ücretsiz. Başvurun incelendikten sonra seçtiğin şehrin listesinde görünürsün.</p>
+    <div class="steps" aria-hidden="true"><i class="on"></i><i id="st2"></i><i id="st3"></i></div>
+    <form class="card" id="sf" novalidate>
+      <div class="field"><label for="sName">Ad soyad</label><input id="sName" name="name" required minlength="3" maxlength="80" autocomplete="name"><span class="err">Ad ve soyadını yaz.</span></div>
+      <div class="field"><label for="sEmail">E-posta</label><input id="sEmail" name="email" type="email" required autocomplete="email" inputmode="email"><span class="err">Geçerli bir e-posta adresi yaz.</span></div>
+      <div class="field"><label for="sCat">Uzmanlık alanı</label><select id="sCat" name="category" class="select" required><option value="">Seç</option>${CATS.map(c=>`<option>${esc(c)}</option>`).join("")}</select><span class="err">Bir alan seç.</span></div>
+      <div class="field"><label for="sCity">Hizmet verdiğin şehir</label><select id="sCity" name="city" class="select" required><option value="">Seç</option>${CITIES.slice().sort((a,b)=>trCmp(a.name,b.name)).map(c=>`<option value="${c.slug}" ${pre===c.slug?"selected":""}>${esc(c.name)}</option>`).join("")}</select><span class="err">Bir şehir seç.</span></div>
+      <div class="field full"><label for="sHl">Kısa tanıtım</label><textarea id="sHl" name="headline" required minlength="20" maxlength="160" placeholder="Ör. Berlin'de Blue Card ve aile birleşimi başvurularında Türkçe danışmanlık."></textarea><span class="err">En az 20 karakter yaz.</span><span class="count"><span id="hlN">0</span>/160</span></div>
+      <fieldset class="field full"><legend>Konuştuğun diller</legend><div class="langs">${LANGS.map((l,i)=>`<label><input type="checkbox" name="langs" value="${l}" ${i===0?"checked":""}><span>${l}</span></label>`).join("")}</div></fieldset>
+      <div class="field"><label for="sWeb">Web sitesi <span class="hint">(isteğe bağlı)</span></label><input id="sWeb" name="website" type="url" placeholder="https://" inputmode="url"><span class="err">Adres https:// ile başlamalı.</span></div>
+      <div class="field"><label for="sDoc">Mesleki belge <span class="hint">(isteğe bağlı)</span></label><input id="sDoc" name="doc" type="file" accept=".pdf,image/*" style="padding-top:10px"><span class="hint">Baro, oda veya sertifika kaydı “Doğrulandı” rozeti için.</span></div>
+      <label class="check full" style="grid-column:1/-1"><input type="checkbox" name="ok" required><span>Bilgilerimin doğru olduğunu ve <a class="link" href="#/profil">profesyonel listeleme kurallarını</a> kabul ediyorum.</span></label>
+      <div class="form-actions"><span class="hint" style="font-size:13px;color:var(--muted)">Başvurular genellikle 2 iş günü içinde incelenir.</span><button class="btn primary" type="submit">Başvuruyu gönder</button></div>
+    </form>
+  </div></section>`;
+}
+function signupAfter(){
+  const re=$("#reApply"); if(re)re.addEventListener("click",()=>{S.myApp=null;save();route()});
+  const f=$("#sf"); if(!f)return;
+  const hl=$("#sHl"),n=$("#hlN");hl.addEventListener("input",()=>{n.textContent=hl.value.length});
+  const prog=()=>{const filled=["name","email","category","city"].filter(k=>f.elements[k].value).length;$("#st2").classList.toggle("on",filled>=4);$("#st3").classList.toggle("on",filled>=4&&hl.value.length>=20&&f.elements.ok.checked)};
+  f.addEventListener("input",prog);f.addEventListener("change",prog);
+  f.addEventListener("submit",e=>{e.preventDefault();
+    if(!f.checkValidity()){f.reportValidity();$$(":invalid",f)[0]?.focus();return}
+    const fd=new FormData(f);
+    const app={id:"a"+Date.now(),name:fd.get("name").trim(),email:fd.get("email").trim(),category:fd.get("category"),city:fd.get("city"),headline:fd.get("headline").trim(),
+      langs:fd.getAll("langs"),website:fd.get("website").trim(),submitted:dayOffset(0),doc:fd.get("doc")?.name?"Belge yüklendi":"Belge yok",mine:true};
+    if(!app.langs.length)app.langs=["Türkçe"];
+    S.apps.unshift(app);S.myApp={...app,status:"pending"};save();toast("Başvurun gönderildi");route();scrollTo({top:0});
+  });
+}
+
+/* ===================== Other tabs (live copy) ===================== */
+function vTopluluk(){
+  const c=BY.barcelona,n=counts("barcelona");
+  return `<section class="wrap" style="max-width:760px"><div class="p-head"><div><h1>${esc(c.name)} topluluğu</h1><p>${esc(c.country)} · şehrini Keşfet sekmesinden değiştirebilirsin.</p></div></div>
+    <div class="kv" style="margin-top:16px"><div><b>${n.here}</b><span>Son 45 gün içinde “Buradayım” diye onaylayanlar</span></div><div><b>${n.soon}</b><span>Önümüzdeki 30 gün içinde gelmeyi planlayanlar</span></div></div>
+    <p class="note">Bu iki grup ayrıdır ve toplanmaz: planlayan biri onay vermeden “burada” sayılmaz. Bir kişi her grupta en fazla bir kez görünür.</p>
+    <div class="panel" style="margin-top:20px"><h2>Kimleri görmek için üye girişi yap</h2><p style="color:var(--muted);font-size:14px">Misafirler yalnızca anonim toplamları görür; küçük gruplar (5 kişiden az) hiç gösterilmez. Kimlikler yalnızca e-postasını doğrulamış üyelere, kendi isteğiyle paylaşanlar için açılır.</p>
+    <a class="btn primary" style="margin-top:16px" href="#/profil">Giriş yap / Üye ol</a></div></section>`;
+}
+function vSeyahat(){return `<section class="wrap" style="max-width:760px"><div class="p-head"><div><h1>Planlarını yalnızca sen yönetirsin</h1>
+  <p>Gideceğin şehri ve tarihleri ekle. İstersen o şehirdeki doğrulanmış üyeler “Yakında gelecek” listesinde seni görür; istemezsen plan sana özel kalır.</p></div></div>
+  <a class="btn primary" style="margin-top:20px" href="#/profil">Giriş yap / Üye ol</a></section>`}
+function vProfil(){return `<section class="wrap" style="max-width:760px"><div class="p-head"><div><h1>TurkaNomad ücretsiz</h1>
+  <p>Üye ol, şehrini seç, kimlerin görebileceğini kendin belirle. Kayıt için gerçek adın ve soyadın, e-posta doğrulaman yeterli.</p></div></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:20px"><a class="btn primary" href="#/profil">Giriş yap / Üye ol</a><a class="btn" href="#/profesyoneller/kayit">Profesyonel olarak kaydol</a></div>
+  <div class="panel" style="margin-top:28px"><h2>Yönetici misin?</h2><p style="color:var(--muted);font-size:14px">Yönetim paneli yalnızca yönetici rolündeki hesaplara görünür. Bu demoda herkese açıktır.</p><a class="btn" style="margin-top:14px" href="#/yonetim">Yönetim paneline git</a></div></section>`}
+
+/* ===================== Admin ===================== */
+const ADM=[["genel","Genel bakış",I.grid],["basvurular","Başvurular",I.inbox],["profesyoneller","Profesyoneller",I.brief],["uyeler","Üyeler",I.users],["raporlar","Raporlar",I.flag],["reklamlar","Reklamlar",I.mega],["sehirler","Şehirler",I.pin]];
+function vAdmin(sec){
+  const badge={basvurular:S.apps.length,raporlar:S.reports.length,reklamlar:S.ads.filter(a=>a.phase==="pending").length};
+  const body={genel:aGenel,basvurular:aApps,profesyoneller:aPros,uyeler:aMembers,raporlar:aReports,reklamlar:aAds,sehirler:aCities}[sec]||aGenel;
+  return `<div class="adm"><aside class="adm-side"><h2>Yönetim</h2><nav aria-label="Yönetim bölümleri">
+    ${ADM.map(([k,l,ic])=>`<a href="#/yonetim/${k}" ${k===sec?'aria-current="page"':""}>${ic}${l}${badge[k]?`<span class="cnt">${badge[k]}</span>`:""}</a>`).join("")}
+    </nav></aside><section class="adm-main" id="admMain">${body()}</section></div>`;
+}
+function aHead(t,p,extra=""){return `<header><div><h1>${t}</h1><p>${p}</p></div>${extra}</header>`}
+function aGenel(){
+  const listed=S.pros.filter(p=>p.status==="listed").length;
+  const byCity=CITIES.map(c=>[c,S.pros.filter(p=>p.city===c.slug&&p.status==="listed").length]).filter(x=>x[1]).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const max=Math.max(1,...byCity.map(x=>x[1]));
+  return aHead("Genel bakış","Bekleyen işler önce. Sayılar demo verisidir.",`<button class="btn sm" type="button" id="reset">Demo verisini sıfırla</button>`)+
+  `<div class="kpis">
+    <a class="kpi ${S.apps.length?"alert":""}" href="#/yonetim/basvurular"><span>Bekleyen başvuru</span><b>${S.apps.length}</b><small>profesyonel kaydı</small></a>
+    <a class="kpi ${S.reports.length?"alert":""}" href="#/yonetim/raporlar"><span>Açık rapor</span><b>${S.reports.length}</b><small>üye şikâyeti</small></a>
+    <a class="kpi" href="#/yonetim/profesyoneller"><span>Yayındaki profesyonel</span><b>${listed}</b><small>${new Set(S.pros.filter(p=>p.status==="listed").map(p=>p.city)).size} şehirde</small></a>
+    <a class="kpi" href="#/yonetim/uyeler"><span>Üye</span><b>${S.members.length}</b><small>${S.members.filter(m=>!m.verified).length} doğrulanmamış</small></a>
+  </div>
+  <div class="two">
+    <div class="panel"><h2>Şehre göre profesyoneller</h2>${byCity.map(([c,n])=>`<div class="bar-row"><b style="font-weight:600">${esc(c.name)}</b><i><b style="width:${n/max*100}%"></b></i><span>${n}</span></div>`).join("")}</div>
+    <div class="panel"><h2>Son işlemler</h2><ul class="activity">${S.log.slice(0,7).map(l=>`<li><span><b>${esc(l.t)}</b> · ${esc(l.m)}</span><time>${ago(l.at)}</time></li>`).join("")}</ul></div>
+  </div>`;
+}
+function aApps(){
+  if(!S.apps.length)return aHead("Başvurular","Profesyonel kayıtları yayına girmeden önce burada onaylanır.")+`<div class="empty"><strong>Bekleyen başvuru yok.</strong>Yeni kayıtlar geldiğinde burada sıraya girer.</div>`;
+  return aHead("Başvurular","Profesyonel kayıtları yayına girmeden önce burada onaylanır. Belgesi olanlar “Doğrulandı” rozeti alır.")+
+  `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Başvuran</th><th>Alan · Şehir</th><th>Tanıtım</th><th>Belge</th><th>Tarih</th><th></th></tr></thead><tbody>
+  ${S.apps.map(a=>`<tr data-id="${a.id}"><td class="who"><b>${esc(a.name)}${a.mine?' <span class="badge grey">senin</span>':""}</b><span>${esc(a.email)}</span></td>
+    <td>${esc(a.category)}<br><span style="color:var(--muted);font-size:12px">${esc(BY[a.city]?.name)}</span></td><td class="clip">${esc(a.headline)}</td>
+    <td>${a.doc==="Belge yok"?'<span class="badge grey">Yok</span>':`<span class="badge">${esc(a.doc.replace(" yüklendi",""))}</span>`}</td><td>${fmtDate(a.submitted)}</td>
+    <td class="act"><button class="btn sm" data-a="reject">Reddet</button> <button class="btn sm primary" data-a="approve">Onayla</button></td></tr>`).join("")}
+  </tbody></table></div>`;
+}
+function aPros(){
+  return aHead("Profesyoneller","Yayındaki kayıtları gizle, doğrula veya kaldır.")+
+  `<div class="adm-tools"><label class="search"><span class="vh">Ara</span>${I.search}<input id="apQ" type="search" placeholder="İsim, alan veya şehir"></label>
+   <label><span class="vh">Şehir</span><select class="select" id="apC"><option value="">Tüm şehirler</option>${CITIES.slice().sort((a,b)=>trCmp(a.name,b.name)).map(c=>`<option value="${c.slug}">${esc(c.name)}</option>`).join("")}</select></label></div>
+  <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Ad</th><th>Alan</th><th>Şehir</th><th>Durum</th><th>Doğrulama</th><th>Kayıt</th><th></th></tr></thead><tbody id="apB"></tbody></table></div>`;
+}
+function aProsRows(){
+  const q=norm($("#apQ")?.value||""),c=$("#apC")?.value||"";
+  const rows=S.pros.filter(p=>(!c||p.city===c)&&(!q||norm(p.name+" "+p.category+" "+BY[p.city]?.name).includes(q)));
+  $("#apB").innerHTML=rows.length?rows.map(p=>`<tr data-id="${p.id}"><td class="who"><b>${esc(p.name)}</b><span>${esc(p.email)}</span></td><td>${esc(p.category)}</td><td>${esc(BY[p.city]?.name)}</td>
+    <td>${p.status==="listed"?'<span class="badge">Yayında</span>':'<span class="badge grey">Gizli</span>'}</td>
+    <td>${p.verified?'<span class="badge">Doğrulandı</span>':'<span class="badge warn">Bekliyor</span>'}</td><td>${fmtDate(p.since)}</td>
+    <td class="act"><button class="btn sm" data-a="verify">${p.verified?"Rozeti kaldır":"Doğrula"}</button> <button class="btn sm" data-a="toggle">${p.status==="listed"?"Gizle":"Yayına al"}</button></td></tr>`).join("")
+    :`<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:32px">Bu filtrede kayıt yok.</td></tr>`;
+}
+function aMembers(){
+  return aHead("Üyeler",`${S.members.length} üye · ${S.members.filter(m=>m.status==="blocked").length} engelli`)+
+  `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Üye</th><th>Şehir</th><th>Durum</th><th>E-posta</th><th>Katılım</th><th></th></tr></thead><tbody>
+  ${S.members.map(m=>`<tr data-id="${m.id}"><td class="who"><b>${esc(m.name)}</b></td><td>${esc(BY[m.city]?.name)}</td><td>${m.state==="here"?"Burada":"Yakında gelecek"}</td>
+    <td>${m.verified?'<span class="badge">Doğrulandı</span>':'<span class="badge warn">Doğrulanmadı</span>'}</td><td>${fmtDate(m.joined)}</td>
+    <td class="act">${m.status==="blocked"?'<span class="badge red">Engelli</span> <button class="btn sm" data-a="unblock">Engeli kaldır</button>':'<button class="btn sm" data-a="block">Engelle</button>'}</td></tr>`).join("")}
+  </tbody></table></div>`;
+}
+function aReports(){
+  if(!S.reports.length)return aHead("Raporlar","Üyelerin bildirdiği profiller ve ilanlar.")+`<div class="empty"><strong>Açık rapor yok.</strong>Kapatılan raporlar Son işlemler listesinde görünür.</div>`;
+  return aHead("Raporlar","Üyelerin bildirdiği profiller ve ilanlar.")+
+  `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Bildirilen</th><th>Neden</th><th>Bildiren</th><th>Şehir</th><th>Tarih</th><th></th></tr></thead><tbody>
+  ${S.reports.map(r=>`<tr data-id="${r.id}"><td class="who"><b>${esc(r.target)}</b></td><td class="clip">${esc(r.reason)}</td><td>${esc(r.by)}</td><td>${esc(BY[r.city]?.name)}</td><td>${ago(r.at)}</td>
+    <td class="act"><button class="btn sm" data-a="dismiss">Kapat</button> <button class="btn sm primary" data-a="act">Önlem al</button></td></tr>`).join("")}
+  </tbody></table></div>`;
+}
+const PH={pending:["İncelemede","warn"],live:["Yayında",""],ended:["Bitti","grey"],rejected:["Reddedildi","red"]};
+function aAds(){
+  return aHead("Reklamlar","Şehir rehberi ve profesyoneller listesindeki sponsorlu alanlar.")+
+  `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Başlık</th><th>Şehir · Yer</th><th>Durum</th><th style="text-align:right">Gösterim</th><th style="text-align:right">Tıklama</th><th></th></tr></thead><tbody>
+  ${S.ads.map(a=>`<tr data-id="${a.id}"><td class="who"><b>${esc(a.headline)}</b><span>${esc(a.who)}</span></td><td>${esc(BY[a.city]?.name)}<br><span style="color:var(--muted);font-size:12px">${a.placement==="city_guide"?"Şehir rehberi":"Profesyoneller listesi"}</span></td>
+    <td><span class="badge ${PH[a.phase][1]}">${PH[a.phase][0]}</span></td><td style="text-align:right">${a.imp.toLocaleString("tr-TR")}</td><td style="text-align:right">${a.clk.toLocaleString("tr-TR")}</td>
+    <td class="act">${a.phase==="pending"?'<button class="btn sm" data-a="reject">Reddet</button> <button class="btn sm primary" data-a="approve">Yayına al</button>':a.phase==="live"?'<button class="btn sm" data-a="end">Durdur</button>':""}</td></tr>`).join("")}
+  </tbody></table></div>`;
+}
+function aCities(){
+  return aHead("Şehirler","Topluluğu açık şehirlerde üyeler birbirini görebilir. Kapalı şehirler bekleme listesi toplar.")+
+  `<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Şehir</th><th>Ülke</th><th style="text-align:right">Burada</th><th style="text-align:right">Profesyonel</th><th>Topluluk açık</th></tr></thead><tbody>
+  ${CITIES.slice().sort((a,b)=>(S.open[b.slug]-S.open[a.slug])||trCmp(a.name,b.name)).map(c=>`<tr><td class="who"><b>${esc(c.name)}</b></td><td>${esc(c.country)}</td><td style="text-align:right">${counts(c.slug).here}</td>
+    <td style="text-align:right">${S.pros.filter(p=>p.city===c.slug&&p.status==="listed").length}</td>
+    <td><label class="switch"><input type="checkbox" data-city="${c.slug}" ${S.open[c.slug]?"checked":""} aria-label="${esc(c.name)} topluluğu açık"><i></i></label></td></tr>`).join("")}
+  </tbody></table></div>`;
+}
+function removeRow(tr,then){tr.classList.add("leaving");setTimeout(then,200)}
+afterRender.yonetim=(sec="genel")=>{
+  const m=$("#admMain");
+  $("#reset")?.addEventListener("click",()=>{if(confirm("Demo verisi ilk haline dönsün mü?")){S=fresh();save();toast("Demo verisi sıfırlandı");route()}});
+  if(sec==="profesyoneller"){aProsRows();$("#apQ").addEventListener("input",aProsRows);$("#apC").addEventListener("change",aProsRows)}
+  if(sec==="sehirler")m.addEventListener("change",e=>{const i=e.target.closest("[data-city]");if(!i)return;S.open[i.dataset.city]=i.checked;log(`${BY[i.dataset.city].name} topluluğu ${i.checked?"açıldı":"kapatıldı"}`);toast(`${BY[i.dataset.city].name} ${i.checked?"açıldı":"kapatıldı"}`)});
+  m.addEventListener("click",e=>{
+    const b=e.target.closest("button[data-a]");if(!b)return;const tr=b.closest("tr"),id=tr.dataset.id,a=b.dataset.a;
+    if(sec==="basvurular"){const ap=S.apps.find(x=>x.id===id);
+      if(a==="reject"){const r=prompt("Ret nedeni (başvurana e-postayla gönderilir):");if(!r)return;
+        S.apps=S.apps.filter(x=>x.id!==id);if(ap.mine&&S.myApp)S.myApp={...S.myApp,status:"rejected",reason:r};log(`${ap.name} başvurusu reddedildi`);toast("Başvuru reddedildi")}
+      else{S.apps=S.apps.filter(x=>x.id!==id);S.pros.unshift({...ap,id:"p"+Date.now(),status:"listed",verified:ap.doc!=="Belge yok",since:dayOffset(0),email:ap.email,website:ap.website});
+        if(ap.mine&&S.myApp)S.myApp={...S.myApp,status:"approved"};log(`${ap.name} onaylandı · ${BY[ap.city]?.name}`);toast(`${ap.name} yayına alındı`)}
+      save();removeRow(tr,route);return}
+    if(sec==="profesyoneller"){const p=S.pros.find(x=>x.id===id);
+      if(a==="verify"){p.verified=!p.verified;log(`${p.name} ${p.verified?"doğrulandı":"rozeti kaldırıldı"}`)}else{p.status=p.status==="listed"?"hidden":"listed";log(`${p.name} ${p.status==="listed"?"yayına alındı":"gizlendi"}`)}
+      save();aProsRows();toast("Güncellendi");return}
+    if(sec==="uyeler"){const u=S.members.find(x=>x.id===id);u.status=a==="block"?"blocked":"active";log(`${u.name} ${a==="block"?"engellendi":"engeli kaldırıldı"}`);save();route();toast("Güncellendi");return}
+    if(sec==="raporlar"){const r=S.reports.find(x=>x.id===id);S.reports=S.reports.filter(x=>x.id!==id);log(a==="act"?`${r.target} için önlem alındı`:`${r.target} raporu kapatıldı`);save();removeRow(tr,route);toast(a==="act"?"Önlem alındı, bildirene haber verildi":"Rapor kapatıldı");return}
+    if(sec==="reklamlar"){const ad=S.ads.find(x=>x.id===id);
+      if(a==="reject"){const r=prompt("Ret nedeni (reklam verene gösterilir):");if(!r)return;ad.phase="rejected"}else ad.phase=a==="approve"?"live":"ended";
+      log(`“${ad.headline}” ${PH[ad.phase][0].toLocaleLowerCase("tr")}`);save();route();toast("Güncellendi");return}
+  });
+};
+
+route();
+</script>
+</body>
+</html>

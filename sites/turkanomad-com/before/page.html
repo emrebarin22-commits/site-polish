@@ -1,1 +1,169 @@
-<html><head></head><body></body></html>
+<!DOCTYPE html><html lang="tr"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TurkaNomad: Dünyadaki Türk topluluğunun haritası</title>
+<meta name="description" content="Şehrini seç, orada yaşayan ve yakında gelecek Türklerle tanış, Türkçe konuşan uzmanlara ulaş. Üyelik ücretsiz.">
+<meta name="theme-color" content="#faf8f4">
+<link rel="canonical" href="https://turkanomad.com/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta property="og:type" content="website"><meta property="og:site_name" content="TurkaNomad"><meta property="og:locale" content="tr_TR">
+<meta property="og:title" content="TurkaNomad: Dünyadaki Türk topluluğunun haritası">
+<meta property="og:description" content="Şehrini seç, orada yaşayan ve yakında gelecek Türklerle tanış.">
+<meta property="og:url" content="https://turkanomad.com/"><meta property="og:image" content="https://turkanomad.com/assets/og-image.jpg">
+<link rel="preload" href="/assets/montserrat-1.woff2" as="font" type="font/woff2" crossorigin="">
+<link rel="preload" href="/assets/montserrat-3.woff2" as="font" type="font/woff2" crossorigin="">
+<link rel="preconnect" href="https://ngubpxfzgmvjxaurymnq.supabase.co" crossorigin="">
+<link rel="stylesheet" href="/assets/montserrat.css?v=10">
+<link rel="stylesheet" href="/atlas-GJMY3ALH.css">
+<script type="module" src="/atlas-GOK25CBA.js"></script>
+</head>
+<body data-tab="kesfet" class="ready">
+<div id="app">
+  <a class="skip" href="#main">İçeriğe geç</a>
+  <header class="top"><a class="logo" href="#/kesfet" aria-label="TurkaNomad, Keşfet"><span class="mk" aria-hidden="true">t</span><span>TurkaNomad</span></a>
+    <nav class="dt-nav" aria-label="Ana gezinme"><a href="#/kesfet" data-t="kesfet" class="on" aria-current="page">Keşfet</a><a href="#/topluluk" data-t="topluluk">Topluluk</a><a href="#/seyahatler" data-t="seyahatler">Seyahatler</a><a href="#/profil" data-t="profil">Profil</a></nav>
+    <div class="top-r" id="topR"><button class="link" data-login="">Giriş yap</button></div></header>
+  <main id="main" tabindex="-1">
+    <section class="tab" id="tab-kesfet" data-tab="kesfet">
+  <div class="d-bar">
+    <button class="city-btn" id="cityBtn" aria-haspopup="dialog"><span class="city-btn-t" id="cityBtnT">Şehir seç</span><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+    <div class="seg" role="group" aria-label="Görünüm"><button data-mode="izgara" class="on" aria-pressed="true">Şehirler</button><button data-mode="harita" aria-pressed="false">Harita</button><button data-mode="liste" aria-pressed="false">Liste</button></div>
+  </div>
+  <div class="d-main" data-mode="izgara" data-empty="true">
+    <div class="d-stage">
+      <div class="map-box" id="mapBox" hidden=""><div id="map" class="map" role="region" aria-label="Dünya haritası, şehir işaretleri"></div>
+        <div class="map-ctl" aria-label="Harita kontrolleri">
+          <button data-m="in" aria-label="Yakınlaştır">+</button><button data-m="out" aria-label="Uzaklaştır">−</button>
+          <button data-m="world" class="wide">Dünyayı göster</button><button data-m="city" class="wide" id="toCity" disabled="">Seçili şehre dön</button>
+        </div>
+        <p class="map-note" id="mapNote" hidden="">Harita karoları yüklenemedi. Şehirleri liste görünümünden seçebilirsin. <button class="link" data-mode="liste">Listeye geç</button></p>
+      </div>
+      <div class="list-box grid-box" id="gridBox">
+        <label class="search"><span class="vh">Şehir veya ülke ara</span><input id="gridSearch" type="text" inputmode="search" enterkeyhint="search" autocomplete="off" placeholder="Şehir veya ülke ara (ör. Barcelona, Münih)" style=""></label>
+        <ul class="city-grid" id="cityGrid"><li><button class="gc" data-slug="amsterdam" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/amsterdam-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Amsterdam</span><span class="gc-c">Hollanda</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="barcelona" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/barcelona-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Barselona</span><span class="gc-c">İspanya</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="berlin" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/berlin-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Berlin</span><span class="gc-c">Almanya</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="london" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/london-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Londra</span><span class="gc-c">Birleşik Krallık</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="athens" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/athens-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Atina</span><span class="gc-c">Yunanistan</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="baku" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/baku-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Bakü</span><span class="gc-c">Azerbaycan</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="brussels" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/brussels-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Brüksel</span><span class="gc-c">Belçika</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="budapest" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/budapest-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Budapeşte</span><span class="gc-c">Macaristan</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="dubai" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/dubai-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Dubai</span><span class="gc-c">Birleşik Arap Emirlikleri</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="dublin" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/dublin-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Dublin</span><span class="gc-c">İrlanda</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="frankfurt" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/frankfurt-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Frankfurt</span><span class="gc-c">Almanya</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="hamburg" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/hamburg-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Hamburg</span><span class="gc-c">Almanya</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="copenhagen" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/copenhagen-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Kopenhag</span><span class="gc-c">Danimarka</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="cologne" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/cologne-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Köln</span><span class="gc-c">Almanya</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="lisbon" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/lisbon-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Lizbon</span><span class="gc-c">Portekiz</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="madrid" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/madrid-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Madrid</span><span class="gc-c">İspanya</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="milan" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/milan-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Milano</span><span class="gc-c">İtalya</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="munich" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/munich-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Münih</span><span class="gc-c">Almanya</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="new-york" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/new-york-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">New York</span><span class="gc-c">Amerika Birleşik Devletleri</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="paris" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/paris-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Paris</span><span class="gc-c">Fransa</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="prague" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/prague-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Prag</span><span class="gc-c">Çekya</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="rome" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/rome-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Roma</span><span class="gc-c">İtalya</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="stockholm" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/stockholm-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Stokholm</span><span class="gc-c">İsveç</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="toronto" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/toronto-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Toronto</span><span class="gc-c">Kanada</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="warsaw" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/warsaw-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Varşova</span><span class="gc-c">Polonya</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="vienna" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/vienna-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Viyana</span><span class="gc-c">Avusturya</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="gc" data-slug="zurich" aria-current="false">
+      <span class="gc-img"><img src="/assets/cities/zurich-sm.webp" alt="" loading="lazy" decoding="async" width="720" height="480"></span>
+      <span class="gc-t"><span class="gc-n">Zürih</span><span class="gc-c">İsviçre</span></span>
+      <span class="gc-s"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li></ul>
+        <p class="credits-line">Şehir fotoğrafları Wikimedia Commons'tan, özgür lisanslarla. <button class="link" id="creditsBtn">Fotoğraf kredileri</button></p>
+      </div>
+      <div class="list-box" id="listBox" hidden="">
+        <label class="search"><span class="vh">Şehir veya ülke ara</span><input id="citySearch" type="text" inputmode="search" enterkeyhint="search" autocomplete="off" placeholder="Şehir veya ülke ara (ör. Barcelona, Münih)" style=""></label>
+        <ul class="city-list" id="cityList"><li><button class="row" data-slug="amsterdam" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/amsterdam-sm.webp" alt="Amsterdam şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Amsterdam</span><span class="r-country">Hollanda</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="barcelona" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/barcelona-sm.webp" alt="Barselona şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Barselona</span><span class="r-country">İspanya</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="berlin" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/berlin-sm.webp" alt="Berlin şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Berlin</span><span class="r-country">Almanya</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="london" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/london-sm.webp" alt="Londra şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Londra</span><span class="r-country">Birleşik Krallık</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="athens" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/athens-sm.webp" alt="Atina şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Atina</span><span class="r-country">Yunanistan</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="baku" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/baku-sm.webp" alt="Bakü şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Bakü</span><span class="r-country">Azerbaycan</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="brussels" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/brussels-sm.webp" alt="Brüksel şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Brüksel</span><span class="r-country">Belçika</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="budapest" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/budapest-sm.webp" alt="Budapeşte şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Budapeşte</span><span class="r-country">Macaristan</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="dubai" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/dubai-sm.webp" alt="Dubai şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Dubai</span><span class="r-country">Birleşik Arap Emirlikleri</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="dublin" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/dublin-sm.webp" alt="Dublin şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Dublin</span><span class="r-country">İrlanda</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="frankfurt" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/frankfurt-sm.webp" alt="Frankfurt şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Frankfurt</span><span class="r-country">Almanya</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="hamburg" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/hamburg-sm.webp" alt="Hamburg şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Hamburg</span><span class="r-country">Almanya</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="copenhagen" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/copenhagen-sm.webp" alt="Kopenhag şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Kopenhag</span><span class="r-country">Danimarka</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="cologne" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/cologne-sm.webp" alt="Köln şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Köln</span><span class="r-country">Almanya</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="lisbon" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/lisbon-sm.webp" alt="Lizbon şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Lizbon</span><span class="r-country">Portekiz</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="madrid" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/madrid-sm.webp" alt="Madrid şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Madrid</span><span class="r-country">İspanya</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="milan" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/milan-sm.webp" alt="Milano şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Milano</span><span class="r-country">İtalya</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="munich" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/munich-sm.webp" alt="Münih şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Münih</span><span class="r-country">Almanya</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="new-york" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/new-york-sm.webp" alt="New York şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">New York</span><span class="r-country">Amerika Birleşik Devletleri</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="paris" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/paris-sm.webp" alt="Paris şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Paris</span><span class="r-country">Fransa</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="prague" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/prague-sm.webp" alt="Prag şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Prag</span><span class="r-country">Çekya</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="rome" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/rome-sm.webp" alt="Roma şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Roma</span><span class="r-country">İtalya</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="stockholm" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/stockholm-sm.webp" alt="Stokholm şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Stokholm</span><span class="r-country">İsveç</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="toronto" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/toronto-sm.webp" alt="Toronto şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Toronto</span><span class="r-country">Kanada</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="warsaw" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/warsaw-sm.webp" alt="Varşova şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Varşova</span><span class="r-country">Polonya</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="vienna" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/vienna-sm.webp" alt="Viyana şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Viyana</span><span class="r-country">Avusturya</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li><li><button class="row" data-slug="zurich" aria-current="false">
+      <img class="thumb sm" src="/assets/cities/zurich-sm.webp" alt="Zürih şehir fotoğrafı" loading="lazy" width="64" height="64"><span class="r-n"><span class="r-city">Zürih</span><span class="r-country">İsviçre</span></span><span class="r-c"><span><b>–</b> burada</span><span><b>–</b> yakında</span></span></button></li></ul>
+      </div>
+    </div>
+    <section class="sheet" id="sheet" aria-label="Seçili şehir özeti"><div class="sheet-empty"><p>Bir şehir seç: oradaki Türk topluluğunu gör.</p><button class="primary" id="emptyPick">Şehir seç</button></div></section>
+  </div></section><section class="tab" id="tab-topluluk" data-tab="topluluk" hidden=""></section><section class="tab" id="tab-seyahatler" data-tab="seyahatler" hidden=""></section><section class="tab" id="tab-profil" data-tab="profil" hidden=""></section>
+    <section class="page" id="page" hidden=""><button class="back" id="back"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg><span>Geri</span></button><div id="pageBody" class="page-body"></div></section>
+  </main>
+  <nav class="bnav" aria-label="Ana gezinme"><a href="#/kesfet" data-t="kesfet" aria-label="Keşfet" class="on" aria-current="page"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"></path></svg><span>Keşfet</span></a><a href="#/topluluk" data-t="topluluk" aria-label="Topluluk"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"></circle><path d="M3 20c.5-3.6 3-5.5 6-5.5s5.5 1.9 6 5.5M16 5.2a3.2 3.2 0 0 1 0 6M18 14.8c1.8.7 2.8 2.4 3 5.2"></path></svg><span>Topluluk</span></a><a href="#/seyahatler" data-t="seyahatler" aria-label="Seyahatler"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 21 4l-6.5 17-3-7.5z"></path></svg><span>Seyahatler</span></a><a href="#/profil" data-t="profil" aria-label="Profil"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"></circle><path d="M4.5 20.5c.7-4 3.6-6 7.5-6s6.8 2 7.5 6"></path></svg><span>Profil</span></a></nav>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden=""></div>
+  </div>
+
+
+</body></html>
