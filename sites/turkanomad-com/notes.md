@@ -64,3 +64,11 @@ city into clear boxes; show active-user counts next to the dots on the map; new 
 
 Demo only: weather, ratings, counts and the waitlist number are sample data. On the live site, weather comes from MET Norway,
 ratings from tn_city_ratings (shown only after 3+ votes), and the waitlist needs a new table + RPC.
+
+## Changes (2026-11-21): Seyahatler moved into Profil
+
+- Seyahatler is no longer a tab (removed from the desktop nav and the mobile bottom bar, which is back to 5 items:
+  Keşfet, Topluluk, Uzmanlar, Kulüp, Profil).
+- It stays as an option: a "Seyahatlerim" box on the Profil page and a "Seyahatlerim" item in the avatar menu.
+  The page itself (`#/seyahatler`) has a back link to Profil and keeps Profil highlighted in the nav.
+  The "Gelme planı ekle" box on city pages still opens it.
