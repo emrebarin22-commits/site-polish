@@ -40,3 +40,27 @@ Skills: impeccable (Operate mode, craft floor), taste-skill (copy/hero and anti-
 Not done: the live backend. Professionals and admin data in the demo are fictional and kept in the browser.
 To ship it, the real app needs a `tn_expert_apply` / `tn_expert_admin` RPC pair and an admin role check
 (the existing `tn_ad_admin` gate can be reused).
+
+## Changes (2026-11-21): second round of requests
+
+Request (TR): remove the List view; always show weather and ratings on the city cards; working profile photo
+and notifications; make the city's Uzmanlar / Etkinlikler / Rehber sections more visible; put the links inside a
+city into clear boxes; show active-user counts next to the dots on the map; new hero text; bring Kulüp back as a waitlist.
+
+- **Keşfet:** only Şehirler (grid) and Harita now. Every card shows weather (°C + icon) and the member rating
+  (★ average) at all times, on large cards as chips over the photo and on small cards under the name.
+- **Hero text:** "… Türkçe konuşan profesyonellere ulaş. Ücretsiz bir şekilde üye ol!"
+- **Map:** zoomed in on Europe; the 4 cities outside it sit at the edge. Each dot has its name and "N aktif" next to it.
+  Labels are placed automatically so none overlap (verified: 0 overlapping pairs), with a leader line when a label sits away from its dot.
+- **Top bar:** notification bell (unread badge, list, mark one or all as read, click goes to the page) and a profile
+  avatar menu (upload a photo, cropped to a 160px square and stored in the browser; remove photo; links to profile, application, Kulüp, admin).
+  New notifications are created on application submitted/approved/rejected, rating saved, and joining the Kulüp list.
+- **City page:** Rehber / Uzmanlar / Etkinlikler are now three large tiles with an icon and a count; the active one is filled.
+  Rehber shows boxes for weather, community, member ratings (4 criteria, with a working 1–5 star "Şehri puanla" form),
+  "Bu şehirde" link boxes (experts, events, community, travel plan) and news links in boxes.
+- **Kulüp tab (desktop nav + mobile bar):** "Yakında" premium membership page with the live site's planned-perks copy and
+  a waitlist form (name, e-mail, city, interest) that shows your place in line and lets you leave. Admin has a new
+  "Kulüp listesi" section with interest totals, removal and CSV export.
+
+Demo only: weather, ratings, counts and the waitlist number are sample data. On the live site, weather comes from MET Norway,
+ratings from tn_city_ratings (shown only after 3+ votes), and the waitlist needs a new table + RPC.
