@@ -72,3 +72,10 @@ ratings from tn_city_ratings (shown only after 3+ votes), and the waitlist needs
 - It stays as an option: a "Seyahatlerim" box on the Profil page and a "Seyahatlerim" item in the avatar menu.
   The page itself (`#/seyahatler`) has a back link to Profil and keeps Profil highlighted in the nav.
   The "Gelme planı ekle" box on city pages still opens it.
+
+## 2026-11-21: rebuilt as a real site in its own repo
+
+The site now lives in https://github.com/emrebarin22-commits/turkanomad (branch `main`):
+Vite front end in the demo's design + Supabase backend (`supabase/migrations/0001_init.sql`),
+strong-password sign-up with required terms/KVKK consent, legal pages, data export and account deletion.
+Future changes to turkanomad.com go there, not into demos/turkanomad-com. Setup steps are in that repo's README.
