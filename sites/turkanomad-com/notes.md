@@ -105,3 +105,4 @@ Left as is: small inline text links inside sentences (allowed by WCAG 2.5.8); th
 - Filter chips no longer show the "27/27" coverage counts.
 - Fixed a mobile horizontal overflow (legend and map hint) and the gap above the footer.
 - Data: Nomads.com was reviewed as a source for internet, rent and trip cost. It was not imported because there is no reuse licence and its metrics don't match the definitions (average crowd-sourced internet speed, rent in the centre). Waiting for the owner to decide.
+- Owner chose option (a): Nomads.com figures imported with credit (TURKANOMAD db73e10). Internet, rent and 7-day trip now filled for 27/27 cities; the TRY conversion uses the TCMB 24.11.2026 rate; fast-internet threshold is 50 Mbps; default budget is 60.000 ₺.
