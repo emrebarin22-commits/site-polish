@@ -106,3 +106,16 @@ Left as is: small inline text links inside sentences (allowed by WCAG 2.5.8); th
 - Fixed a mobile horizontal overflow (legend and map hint) and the gap above the footer.
 - Data: Nomads.com was reviewed as a source for internet, rent and trip cost. It was not imported because there is no reuse licence and its metrics don't match the definitions (average crowd-sourced internet speed, rent in the centre). Waiting for the owner to decide.
 - Owner chose option (a): Nomads.com figures imported with credit (TURKANOMAD db73e10). Internet, rent and 7-day trip now filled for 27/27 cities; the TRY conversion uses the TCMB 24.11.2026 rate; fast-internet threshold is 50 Mbps; default budget is 60.000 ₺.
+
+## Data completion + mobile polish (24 Nov 2026, TURKANOMAD 2e1a2d1)
+
+- Culture now covers 27/27 cities. Zürich has a UNESCO site inside the city (Pile Dwellings). The other 6 cities have none inside their limits and now show "Şehirde UNESCO alanı yok". No "Veri yok" is left on the site.
+- Mobile (mobile-native, impeccable/adapt):
+  - hover styles gated to fine pointers (29 rules)
+  - touch-action: manipulation, and no long-press selection on controls
+  - 44px tap targets for footer and auth links
+  - chip rows fade at the cut edge and snap
+  - auth forms sit on the page instead of in a card
+  - the compare pill sits next to the Şehirler title
+  - email fields: no autocapitalize, "next" key
+- Not done: real-device testing (sticky hover and keyboard behaviour need hardware), and overscroll-behavior. This is a content site, so pull-to-refresh is left on.
