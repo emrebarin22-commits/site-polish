@@ -95,3 +95,13 @@ Checked 17 routes × desktop, tablet, phone and dark mode, as guest and member, 
 - Structure: Profil has a real h1; admin "Belgeyi aç" is a full-size button; logo link is a 44px target.
 - Tablet: open-city cards are 4:3 instead of 4:5.
 Left as is: small inline text links inside sentences (allowed by WCAG 2.5.8); the demo-mode badge (demo builds only).
+
+## Keşfet design pass (24 Nov 2026, TURKANOMAD `feature/discovery` 3f186c2)
+
+- Live numbers (cities / members / professionals) moved directly under the headline. The intro band, which repeated the hero, is now a photo strip of five cities.
+- "Neden TurkaNomad?": the six identical icon cards became a two-column editorial list.
+- Map legend fits on one line. Open communities get a soft pulse that is off under reduced motion.
+- "Nasıl çalışır" is now a numbered timeline. Sign-up buttons went from 6 to 3 (header, headline, final band).
+- Filter chips no longer show the "27/27" coverage counts.
+- Fixed a mobile horizontal overflow (legend and map hint) and the gap above the footer.
+- Data: Nomads.com was reviewed as a source for internet, rent and trip cost. It was not imported because there is no reuse licence and its metrics don't match the definitions (average crowd-sourced internet speed, rent in the centre). Waiting for the owner to decide.
