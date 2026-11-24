@@ -79,3 +79,19 @@ The site now lives in https://github.com/emrebarin22-commits/turkanomad (branch 
 Vite front end in the demo's design + Supabase backend (`supabase/migrations/0001_init.sql`),
 strong-password sign-up with required terms/KVKK consent, legal pages, data export and account deletion.
 Future changes to turkanomad.com go there, not into demos/turkanomad-com. Setup steps are in that repo's README.
+
+## 2026-11-24: polish pass ("elden geçir") on the TURKANOMAD repo
+
+Branch `polish/2026-11-24` in emrebarin22-commits/TURKANOMAD (not yet merged into `main`).
+Skills: impeccable polish playbook (states, contrast, focus, responsive). taste-skill's finish gate was not run:
+it checks pages built with its own kit, which this app does not use.
+Checked 17 routes × desktop, tablet, phone and dark mode, as guest and member, with automatic checks
+(console errors, overflow, tap targets, unlabelled controls, alt text, headings) plus keyboard Tab order.
+
+- Bug: `[hidden]` lost to component display rules, so the city rating form was always open and the bell badge
+  could show with nothing unread. Fixed globally.
+- Bug: a focus ring was drawn around the whole page after each navigation (thin white line under the content in dark mode).
+- Colour: dark-mode buttons now use a deeper red fill token (`--red-fill`) so white text passes contrast.
+- Structure: Profil has a real h1; admin "Belgeyi aç" is a full-size button; logo link is a 44px target.
+- Tablet: open-city cards are 4:3 instead of 4:5.
+Left as is: small inline text links inside sentences (allowed by WCAG 2.5.8); the demo-mode badge (demo builds only).
