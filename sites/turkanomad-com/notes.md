@@ -119,3 +119,11 @@ Left as is: small inline text links inside sentences (allowed by WCAG 2.5.8); th
   - the compare pill sits next to the Şehirler title
   - email fields: no autocapitalize, "next" key
 - Not done: real-device testing (sticky hover and keyboard behaviour need hardware), and overscroll-behavior. This is a content site, so pull-to-refresh is left on.
+
+## 25 Nov 2026: Şehirler, map labels, member home, map fixes (TURKANOMAD main e5dc3cf)
+
+- Şehirler: the grid comes first; the intro and the data note moved below it.
+- Map pins: one-line labels with IATA codes and a bare count (`LON 151`); `<5` is dropped.
+- Members land on their own city: weather, counts, shortcuts and upcoming events. The world map is at `#/kesfet/harita`. The visitor pitch is shown only to guests, and on mobile "neler var" now comes before "Neden".
+- Map: zoom-out stops at the frame, which keeps the image's proportions (no empty bands). The legend strip was removed and replaced by a small credit in the corner.
+- Pushed to main; the deploy branch was built. Hostinger does not pull it on its own and the FTP secrets are still missing, so the owner uploads the zip by hand.
