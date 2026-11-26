@@ -27,7 +27,8 @@ If the target is unclear, ask one short question. Otherwise proceed and state yo
 | The user says something like… | Intent | Read these, in this order |
 |---|---|---|
 | "polish", "make it better", "looks off", "clean it up" | polish | `impeccable` → `reference/polish.md`, then `taste-skill` finish gate |
-| "looks generic", "AI-made", "templated", "redesign", "new landing page" | redesign | `taste-skill` (main flow), then `impeccable` → `reference/critique.md` on the result |
+| "unslop", "vibecoded", "AI-made", "looks like AI", purple gradients, glows, emoji labels | unslop | `unslop` (its pass order: spacing → color → icons → copy → type → layout → details → visuals → motion), then `impeccable` → `reference/critique.md` on the result |
+| "looks generic", "templated", "redesign", "new landing page" | redesign | `taste-skill` (main flow), then `unslop` signs check, then `impeccable` → `reference/critique.md` on the result |
 | "review", "what's wrong", "audit", "critique", "score it" | review (no edits) | `impeccable` → `reference/critique.md` + `reference/audit.md`, `find-animation-opportunities`, `review-animations` |
 | "bolder", "more personality", "too plain" | bolder | `impeccable` → `reference/bolder.md` (also `colorize.md`, `typeset.md` if relevant) |
 | "too busy", "calmer", "too loud" | quieter | `impeccable` → `reference/quieter.md` / `distill.md`, `remove-animations` |
@@ -54,6 +55,7 @@ Rules for combining:
   then type and color, then motion (Emil's skills), then mobile and edge cases.
 - When two skills disagree, the more specific one wins for its area: Emil's skills for motion,
   taste-skill for page structure and copy, impeccable for the visual system, critique and audit.
+  unslop wins on "does this still look AI-made" (its `references/signs.md` list of tells).
 - Every motion change respects `prefers-reduced-motion` and only animates `transform` / `opacity`
   unless a skill says otherwise.
 - Keep the site's real content, language, brand colors and logo unless the user asks to change them.

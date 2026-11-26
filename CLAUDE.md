@@ -25,6 +25,7 @@ to the specialist skills and follows the workflow below.
 2. **Audit**: look at the screenshots and the HTML.
    - `impeccable` (critique / audit): design problems, AI slop, accessibility
    - `taste-skill`: copy, layout system, hero, and the "does this look generic" check
+   - `unslop`: the AI-made tells (purple gradients, glows, emoji labels, shouty copy, uneven spacing)
    - `find-animation-opportunities` and `review-animations`: motion that is missing or wrong
    - `break-ui`: worst-case content on the key components
    - Write the findings to `sites/<slug>/notes.md`, ranked by impact.
