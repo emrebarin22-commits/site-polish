@@ -127,3 +127,32 @@ Left as is: small inline text links inside sentences (allowed by WCAG 2.5.8); th
 - Members land on their own city: weather, counts, shortcuts and upcoming events. The world map is at `#/kesfet/harita`. The visitor pitch is shown only to guests, and on mobile "neler var" now comes before "Neden".
 - Map: zoom-out stops at the frame, which keeps the image's proportions (no empty bands). The legend strip was removed and replaced by a small credit in the corner.
 - Pushed to main; the deploy branch was built. Hostinger does not pull it on its own and the FTP secrets are still missing, so the owner uploads the zip by hand.
+
+## 26 Nov 2026: unslop pass (unslop by @heydamir, CC BY 4.0), TURKANOMAD branch `unslop/2026-11-26` (0fd0234)
+
+- Audit (light slop):
+  - 800-weight headings in 40 places
+  - negative tracking on small text
+  - tinted icon tiles
+  - pill buttons everywhere
+  - a looping pin pulse and hover zoom
+  - a red gradient border on the pro box
+  - a centred closing band
+  - trailing periods on subheads
+- The owner chose "go further".
+- Direction:
+  - Product: a free community that brings Turks abroad together city by city on one map.
+  - Character: warm, trustworthy, guiding.
+  - World: maps, passports, airport boards.
+  - Moment: the satellite map (for members, their city photo).
+  - Signature: the IATA code tag.
+- Changes:
+  - Figtree, Instrument Serif and IBM Plex Mono, self-hosted (OFL); Montserrat removed
+  - warm paper ramp in light and dark, red as the one accent
+  - line icons without tiles, 10px controls
+  - hero: headline, owner's line, one primary plus a quiet link, mono numbers, then the map
+  - code tags on the map, strip, Şehirler cards and the member city card
+  - closing band split
+  - no looping motion
+- Fixed: the map frame was narrower than its box at 1440 px. This is a regression in the zip from 25 Nov.
+- Before/after: `unslop-desktop.png`, `unslop-mobile.png`.
