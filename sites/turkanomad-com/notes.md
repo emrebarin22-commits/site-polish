@@ -156,3 +156,5 @@ Left as is: small inline text links inside sentences (allowed by WCAG 2.5.8); th
   - no looping motion
 - Fixed: the map frame was narrower than its box at 1440 px. This is a regression in the zip from 25 Nov.
 - Before/after: `unslop-desktop.png`, `unslop-mobile.png`.
+
+- 26 Nov: unslop pass merged to TURKANOMAD main (1189983); deploy branch built (cab1573). The FTP deploy failed again because the secrets are missing; the owner received turkanomad-canli-2026-11-26.zip to upload by hand.
